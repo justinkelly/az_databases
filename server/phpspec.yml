@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: az
+        psr4_prefix: az
+        src_path: app
