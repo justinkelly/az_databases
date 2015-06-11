@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello React</title>
+                <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="https://rawgit.com/flatiron/director/master/build/director.min.js"></script>
+  </head>
+  <body>
+   <script type="text/javascript">
+  
+  window.React = React;
+
+
+ if (typeof window !== 'undefined') {
+     window.React = React;
+}
+</script>
+    <script type="text/jsx">
+/** @jsx React.DOM */
+
+AreaList = React.createClass({
+    getInitialState: function () {
+        return { posts: [] };
+    },
+    componentWillMount: function () {
+        this.fetchLatestNews();
+    },
+    fetchLatestNews: function () {
+        $.ajax({
+            url:       'http://136.186.72.211/laravel/public/AZArea',
+            dataType:  'json',
+            data:      { format: 'json' },
+            success: function (result) {
+                this.setState({ posts: result });
+            }.bind(this),
+            error: function () {
+                alert('error getting posts. please try again later');
+            }
+        });
+    },
+    render: function () {
+        return <div className="areaListPosts">
+            {this.state.posts.map(function (post) {
+                return <AreaListItem key={post.id} area_id={post.id} category={post.name}/>
+            })}
+        </div>;
+    }
+});
+
+
+var AreaListItem = React.createClass({
+  getInitialState: function() {
+    return {
+        showSubMenu: false
+    };
+  },
+
+  onClick: function() {
+
+    console.log(this.state);
+
+    this.setState({ 
+      database_list_type: 'area', 
+      database_list_id: this.props.area_id 
+    });
+
+      if(this.state.showSubMenu == true)
+      {
+          this.setState({ showSubMenu: false });
+      } else {
+          this.setState({ showSubMenu: true });
+         }
+
+    <DatabaseList type={this.state.database_list_type} id={this.state.database_list_id} />
+         React.render(
+          <DatabaseList type={this.state.database_list_type} id={this.state.database_list_id} />,
+          document.getElementById('databaseList')
+        );
+
+  },
+    render: function() {
+        return (<div>
+          <a href="#" onClick={this.onClick} >{this.props.category}</a>
+           { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
+        </div>);
+    }
+});
+
+
+SubjectList = React.createClass({
+    getInitialState: function () {
+        return { subject: [] };
+    },
+    componentWillMount: function () {
+        this.fetchLatestNews();
+    },
+
+    fetchLatestNews: function () {
+        $.ajax({
+            url:       'http://136.186.72.211/laravel/public/area/subject/'+ this.props.area_id,
+            dataType:  'json',
+            data:      { format: 'json' },
+            success: function (result) {
+                this.setState({ subject: result });
+            }.bind(this),
+            error: function () {
+                alert('error getting posts. please try again later');
+            }
+        });
+    },
+
+    render: function () {
+ 
+        return <div className="subjectListPosts">
+            {this.state.subject.map(function (post) {
+                return <SubjectListItem id={post.id} key={post.id} category={post.name} />
+            })}
+        </div>;
+    }
+});
+
+
+var SubjectListItem = React.createClass({
+
+    // do onclick to show databases
+ onClick: function() {
+
+    console.log(this.state);
+
+    this.setState({ 
+      database_list_type: 'subject', 
+      database_list_id: this.props.id
+    });
+
+ <DatabaseList type={this.state.database_list_type} id={this.state.database_list_id} />
+         React.render(
+          <DatabaseList type={this.state.database_list_type} id={this.state.database_list_id} />,
+          document.getElementById('databaseList')
+        );
+  },
+
+    render: function() {
+
+        return (
+                <div>
+                &nbsp; S:: <a href="#" onClick={this.onClick}>{this.props.category}</a>
+                </div>);
+        
+    }
+});
+
+
+DatabaseList = React.createClass({
+
+    getInitialState: function () {
+        return { database: [] };
+    },
+
+    componentWillUpdate: function()
+    {
+    //this.fetchLatestNews();
+
+    },
+
+    componentWillMount: function () {
+  
+          this.fetchLatestNews();
+      
+    },
+
+    fetchLatestNews: function () {
+        $.ajax({
+            url:       'http://136.186.72.211/laravel/public/database/'+ this.props.type + '/'+ this.props.id,
+            dataType:  'json',
+            data:      { format: 'json' },
+            success: function (result) {
+                this.setState({ database: result });
+            }.bind(this),
+            error: function () {
+                alert('error getting posts. please try again later');
+            }
+        });
+    },
+
+    render: function () {
+        return <div className="databaseListPosts">
+            {this.state.database.map(function (post) {
+                return <DatabaseListItem name={post.name} />
+            })}
+        </div>;
+    }
+});
+
+
+var DatabaseListItem = React.createClass({
+
+    // do onclick to show databases
+
+    render: function() {
+        return (<div >&nbsp; DB::<a href="#"  onClick={this.onClick}>{this.props.name}</a></div>);
+    }
+});
+
+var App = React.createClass({
+
+  getInitialState: function() {
+    return { currentPage: 'home'};
+  },
+
+  render: function() {
+
+    return (<div>
+            <AreaList />
+            <DatabaseList />
+            </div>
+            
+    );
+  }
+});
+
+
+
+React.render(<App />, document.getElementById('root'));
+
+
+
+
+
+    </script>
+    <div id="root"></div>
+    <div>
+    <div id='databaseList'></div>
+            </div>
+
+
+  </body>
+</html>

@@ -1,0 +1,512 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/offcanvas.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    
+
+       <style>
+       .btn-group{width:96%;}
+       .letterWide{margin-right: 2px;}
+    #searchinput {
+     /*width: 200px;*/
+    }
+
+    #searchclear {
+      position: absolute;
+      right: 5px;
+      top: 0;
+      bottom: 0;
+      height: 14px;
+      margin: auto;
+      font-size: 14px;
+      cursor: pointer;
+      color: #ccc;
+    }
+  </style>
+
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+      // Your code here
+      // tutorial1.js
+var AreaBox = React.createClass({
+
+    getInitialState: function() {
+    return {data: [],database:[],showToggle:true};
+    },
+     toggleMenu: function() {
+ 
+      $(".navbar-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+
+      /*this.setState({showToggle: true});*/
+
+  },
+   loadAreasFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  loadDatabasesFromServer: function(database_list, database_list_id) {
+    console.log('DB:'+database_list+database_list_id);
+    if(database_list == null){
+      database_list = this.props.database_list; 
+    } 
+    if(database_list_id == null){
+      database_list_id = this.props.database_list_id; 
+    } 
+    
+    if(database_list != null)
+    {
+      db_url = this.props.url_database+'/'+database_list+'/'+database_list_id;
+    } else{
+      db_url = this.props.url_database+'/list';
+    }
+    $.ajax({
+      url: db_url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({database: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url_database, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  areaClickEvent: function(e) {
+     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+  },
+  subjectClickEvent: function(e) {
+     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+  },
+  azClickEvent: function(e) {
+     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+  },
+  searchEvent: function(e) {
+     if(e.detail.database_list_id != null)
+     {
+      this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+    } else{ 
+      console.log('Emoty search');
+      this.loadDatabasesFromServer('list');
+    }
+  },
+  componentWillMount: function() {
+    window.addEventListener("area_click_event", this.areaClickEvent, false);
+    window.addEventListener("subject_click_event", this.subjectClickEvent, false);
+    window.addEventListener("az_click_event", this.azClickEvent, false);
+     window.addEventListener("search_event", this.searchEvent, false);
+  },
+  componentWillUnmount: function() {
+    window.removeEventListener("area_click_event", this.areaClickEvent, false);
+    window.removeEventListener("subject_click_event", this.subjectClickEvent, false);
+  },
+
+
+  componentDidMount: function() {
+    this.loadAreasFromServer();
+    this.loadDatabasesFromServer();
+    setInterval(this.loadAreasFromServer, this.props.pollInterval);
+    setInterval(this.loadDatabasesFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+         <div id="wrapper">
+  
+        <div id="sidebar-wrapper">
+            <ul className="sidebar-nav">
+
+               <div className="areaBox">
+               <h1>Search</h1>
+                <SearchBox />
+               <h1>A-Z</h1>
+                <AZList />
+              <h1>Area</h1>
+              <AreaList data={this.state.data} />
+              </div>
+             </ul>
+        </div>
+      
+
+         
+        <div id="page-content-wrapper">
+
+
+            <div className="container-fluid">
+
+              <div className="toggleMenu">            
+
+              { this.state.showToggle ? <a href="#menu-toggle" onClick={this.toggleMenu}  className="btn btn-default" id="menu-toggle"><i className="fa fa-bars fa-2x"></i></a> : null }
+              </div>
+                <div className="row">
+
+            <div className="databaseBox">
+              <h1>Databases</h1>
+              <DatabaseList data={this.state.database} />
+            </div>
+
+
+
+               </div>
+            </div>
+        </div>
+        </div>
+    );
+  }
+});
+
+
+// tutorial2.js
+var AreaList = React.createClass({
+  //arealist hodler for area
+
+  componentDidMount: function() {
+   // this.loadSubjectsFromServer();
+  },
+
+/*
+  render: function() {
+    
+    var createItem = function(card, index) {
+      return (
+        <div className='areaItem'>
+         <div className="area">
+              <a ref="link" href="#" name={card.name} area_id={card.id} onClick={this.handleAreaClick.bind(this, card.id)} >{card.name}</a>
+         </div>
+ 
+        </div>
+      );
+    }.bind(this);
+
+    return <div id='cards'>{ this.props.data.map(createItem) }</div>;
+   }
+*/
+  render: function() {
+      var commentNodes = this.props.data.map(function (comment) {
+        return (
+          <Area key={comment.id} area_id={comment.id} name={comment.name} />
+        );
+    });
+    return (
+      <div className="areaList">
+       {commentNodes}
+      </div>
+    );
+  }
+ 
+});
+
+var SearchBox = React.createClass({
+
+   getInitialState: function() {
+      return {userInput: '', showClear:false};
+    },
+
+
+    clearAndFocusInput: function() {
+      this.setState({userInput:'',showClear:false}); 
+
+      var customEvent = new CustomEvent("search_event",  {
+            detail: { database_list: 'list'},
+            bubbles: true
+      });
+      dispatchEvent(customEvent);
+      //this.setState({userInput: ''}); // Clear the input
+      // We wish to focus the <input /> now!
+      //this.refs.filterTextInput.getDOMNode().value
+    },
+
+    handleChange: function(e) {
+
+        this.setState({userInput: e.target.value});    
+
+        text = this.refs.filterTextInput.getDOMNode().value;
+        
+        if(text ==''){
+          text = null;
+          this.setState({showClear:false}); 
+        } else {
+          this.setState({showClear:true}); 
+        }
+        var customEvent = new CustomEvent("search_event",  {
+            detail: { 
+              database_list: 'search',
+              database_list_id: text },
+            bubbles: true
+           });
+
+     
+          console.log('text:' + text);
+
+          //this.refs.link.getDOMNode().dispatchEvent(customEvent);
+          //this.refs.filterTextInput.getDOMNode().value,
+
+
+          dispatchEvent(customEvent);
+
+
+    },
+
+    render: function() {
+        return (
+            <form>
+              <div className="btn-group">         
+                <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Search..."
+                    value={this.state.userInput}
+                    ref="filterTextInput"
+                    onChange={this.handleChange}
+                />
+                 { this.state.showClear ? <span onClick={this.clearAndFocusInput} id="searchclear" className="glyphicon glyphicon-remove-circle"></span> :  null }
+                 </div>
+
+            </form>
+        );
+    }
+});
+
+var AZList = React.createClass({
+
+
+  render: function() {
+
+    var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var alphaArray = str.toUpperCase().split("");
+
+    var commentNodes = alphaArray.map(function (comment) {
+        return (
+          <AZ letter={comment} />
+        );
+    });
+
+    return (
+      <div className="azList">
+       {commentNodes}
+      </div>
+    );
+  }   
+
+});
+
+
+var AZ = React.createClass({
+
+   handleAZClick: function(area_click) {
+
+    console.debug(area_click);
+ 
+    var customEvent = new CustomEvent("az_click_event",  {
+      detail: { 
+       database_list: 'az',
+       database_list_id: area_click },
+      bubbles: true
+    });
+    this.refs.link.getDOMNode().dispatchEvent(customEvent);
+
+  },
+
+  render: function() {
+
+    return (<span>
+          <a ref="link" className='letterWide' href="#" name={this.props.letter} letter="{this.props.letter}" onClick={this.handleAZClick.bind(this, this.props.letter)} >{this.props.letter}</a>
+          </span>
+        );
+    }
+
+});
+
+// tutorial4.js
+var Area = React.createClass({
+  //Area owns subjectlist
+
+   handleAreaClick: function(area_click) {
+ 
+     if(this.state.showSubMenu == true)
+     {
+          this.setState({ showSubMenu: false });
+      } else {
+          this.setState({ showSubMenu: true });
+     }
+
+    var customEvent = new CustomEvent("area_click_event",  {
+      detail: { 
+       database_list: 'area',
+       database_list_id: area_click },
+      bubbles: true
+    });
+    this.refs.link.getDOMNode().dispatchEvent(customEvent);
+
+  },
+
+
+
+  getInitialState: function() {
+    return {
+        subject: [],  
+        showSubMenu: false
+    };
+  },
+
+
+  render: function() {
+/*
+    var createItem = function(card, index) {
+      return (
+        <div id='card' key={index}>
+          <img onClick={this.props.onClick.bind(null, this)} src={ card.url } />
+        </div>
+      );
+    }.bind(this);
+
+    return (<div id='cards'>
+        { this.props.cards.map(createItem) }
+        </div>
+            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
+            )
+    }
+*/
+       return (
+        <div className='areaItem'>
+         <div className="area">
+              <a ref="link" href="#" name={this.props.name} area_id="{this.props.area_id}" onClick={this.handleAreaClick.bind(this, this.props.area_id)} >{this.props.name}</a>
+            </div>
+            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
+        </div>);
+     }
+
+});
+// tutorial2.js
+var SubjectList = React.createClass({
+
+  loadSubjectsFromServer: function(area_click) {
+    $.ajax({
+      url: 'http://136.186.72.211/laravel/public/area/subject/'+ area_click,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({subject: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  getInitialState: function() {
+    return {subject: []};
+  },
+  componentWillMount: function() {
+    window.addEventListener("subject_click_event", this.areaClickEvent, false);
+  },
+  componentDidMount: function() {
+    this.loadSubjectsFromServer(this.props.area_id);
+  },
+  render: function() {
+      var commentNodes = this.state.subject.map(function (comment) {
+        return (
+          <Subject key={comment.id} subject_id={comment.id} name={comment.name}/>
+        );
+    });
+    return (
+      <div className="subjectList">
+       {commentNodes}
+      </div>
+    );
+  }
+});
+
+// tutorial4.js
+var Subject = React.createClass({
+
+  handleSubjectClick: function(e) {
+    //reload database list
+    var customEvent = new CustomEvent("subject_click_event",  {
+      detail: { 
+       database_list: 'subject',
+       database_list_id: e },
+      bubbles: true
+    });
+    this.refs.link.getDOMNode().dispatchEvent(customEvent);
+   
+  },
+
+  render: function() {
+        return (
+      <div className="subject">
+       &nbsp; &nbsp; <a ref="link" href="#" name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
+      </div>
+    );
+  }
+});
+
+
+
+
+
+
+// tutorial2.js
+var DatabaseList = React.createClass({
+  render: function() {
+      var databaseNodes = this.props.data.map(function (comment) {
+        return (
+          <Database author={comment.id} name={comment.name}  description={comment.description}  />
+        );
+    });
+    return (
+      <div className="areaList">
+       {databaseNodes}
+      </div>
+    );
+  }
+});
+
+// tutorial4.js
+var Database = React.createClass({
+
+ 
+  render: function() {
+     var rawMarkup = marked(this.props.description.toString(), {sanitize: true});
+     return (
+      <div className="comment">
+       <a href="#">{this.props.name}</a>
+        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+      </div>
+    );
+  }
+});
+
+React.render(
+    <AreaBox url="http://136.186.72.211/laravel/public/AZArea" url_database="http://136.186.72.211/laravel/public/database" pollInterval={200000} />,
+  document.getElementById('content')
+);
+    </script>
+  </body>
+</html>

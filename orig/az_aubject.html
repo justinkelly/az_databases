@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  </head>
+  <body>
+    <script type="text/jsx">
+    var ProductCategoryRow = React.createClass({
+      getInitialState: function() {
+        return {
+            showSubMenu: false
+        };
+      },
+
+      onClick: function() {
+        console.log(this.state);
+          if(this.state.showSubMenu == true)
+          {
+              this.setState({ showSubMenu: false });
+          } else {
+              this.setState({ showSubMenu: true });
+             }
+      },
+        render: function() {
+            return (<div><a href="#" onClick={this.onClick} ><b>{this.props.category}</b></a></div>);
+        }
+    });
+
+    var ProductRow = React.createClass({
+        render: function() {
+            var name = this.props.subject.stocked ?
+                this.props.subject.name :
+                <span style={{color: 'red'}}>
+                    {this.props.subject.name}
+                </span>;
+            return (<div>{name} ::{this.props.subject.price} </div>);
+        }
+    });
+
+    var ProductTable = React.createClass({
+
+      getInitialState: function() {
+        return {
+          ajaxArea: [],
+          ajaxSubject:[]
+        };
+      },
+
+
+      componentDidMount: function() {
+        var self = this;
+
+        $.get(this.props.url_area, function(result) {
+
+          var collection = result;
+
+          if (this.isMounted()) {
+            this.setState({
+              ajaxArea: collection
+            });
+
+          }
+        }.bind(this));
+
+        $.get(this.props.url_subject, function(result) {
+
+          var collection = result;
+
+          if (this.isMounted()) {
+            this.setState({
+              ajaxSubject: collection
+            });
+
+          }
+        }.bind(this));
+
+
+      },
+
+
+        render: function() {
+          console.log(this.props);
+            var rows_header = [];
+            var rows = [];
+            var lastCategory = null;
+
+
+            ajaxArea= this.state.ajaxArea;
+            ajaxArea.forEach(function(area) {
+
+              //do header row
+
+              rows.push(<ProductCategoryRow category={area.name} key={area.name} />);
+
+              //do child row
+
+              this.state.ajaxSubject.forEach(function(subject) {
+
+                    if(area.id == subject.area_id)
+                    {
+                      rows.push(<ProductRow subject={subject} key={subject.name} />);
+                      lastCategory = subject.area_id;
+                    }
+
+                });
+
+          }.bind(this));
+
+            return (
+                <div>Name:: Price</div>
+                {rows}
+            );
+        }
+    });
+
+    var FilterableProductTable = React.createClass({
+        getInitialState: function() {
+            return {
+                filterText: '',
+                inStockOnly: false
+            };
+        },
+
+        render: function() {
+            return (
+                <div>
+                    <ProductTable
+                        url_area="http://136.186.72.211/laravel/public/AZArea"
+                        url_subject="http://136.186.72.211/laravel/public/AZSubject"
+                        area={this.props.area}
+                        subject={this.props.subject}
+                        showSubMenu={this.state.showSubMenu}
+                    />
+                </div>
+            );
+        }
+    });
+
+
+
+    React.render(<FilterableProductTable />, document.body);
+
+    </script>
+  </body>
+</html>

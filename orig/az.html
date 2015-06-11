@@ -1,0 +1,128 @@
+<!-- index.html -->
+<html>
+  <head>
+    <title>Hello React</title>
+    <script src="https://fb.me/react-0.13.3.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+
+      var Comment = React.createClass({
+        handleAreaClick: function(comment) {
+          var comments = this.state.data;
+          var newComments = comments.concat([comment]);
+          this.setState({data: newComments});
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            type: 'POST',
+            data: comment,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function() {
+          return {data: []};
+        },
+        render: function() {
+          var rawMarkup = this.props.children.toString();
+          return (
+            <div className="comment">
+                <a href="#" id={this.props.id} url="http://136.186.72.211/laravel/public/AZSubject" className="areaClick" onClick={this.handleAreaClick}>{rawMarkup}</a>
+              </div>
+          );
+        }
+      });
+
+      // tutorial20.js
+      var CommentBox = React.createClass({
+        loadCommentsFromServer: function() {
+          $.ajax({
+            url: this.props.url,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(this.props.url, status, err.toString());
+            }.bind(this)
+          });
+        },
+        getInitialState: function() {
+          return {data: []};
+        },
+        componentDidMount: function() {
+          this.loadCommentsFromServer();
+          //setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        },
+        render: function() {
+          return (
+            <div className="commentBox">
+              <h1>Comments</h1>
+              <CommentList data={this.state.data} />
+              <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            </div>
+          );
+        }
+      });
+
+// tutorial2.js
+var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function (comment) {
+      return (
+        <Comment id={comment.id}>
+        {comment.name}
+        </Comment>
+      );
+    });
+    return (
+      <div className="commentList">
+      {commentNodes}
+      </div>
+    );
+  }
+});
+
+// tutorial18.js
+var CommentForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var id = React.findDOMNode(this.refs.id).value.trim();
+    var name = React.findDOMNode(this.refs.name).value.trim();
+    if (!text || !author) {
+      return;
+    }
+    this.props.onCommentSubmit({author: author, text: text});
+    React.findDOMNode(this.refs.id).value = '';
+    React.findDOMNode(this.refs.name).value = '';
+    return;
+  },
+  render: function() {
+    return (
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Your name" ref="id" />
+        <input type="text" placeholder="Say something..." ref="name" />
+        <input type="submit" value="Post" />
+      </form>
+    );
+  }
+});
+
+React.render(
+  <CommentBox url="http://136.186.72.211/laravel/public/AZArea" pollInterval={2000}/>,
+  document.getElementById('content')
+);
+
+    </script>
+  </body>
+</html>
