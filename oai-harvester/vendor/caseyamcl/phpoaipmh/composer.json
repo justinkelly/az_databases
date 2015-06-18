@@ -1,0 +1,36 @@
+{
+    "name": "caseyamcl/phpoaipmh",
+    "type": "library",
+    "description": "A PHP OAI-PMH 2.0 Harvester library",
+    "keywords": ["OAI", "Harvester", "OAI-PMH"],
+    "homepage": "https://github.com/caseyamcl/phpoaipmh",
+    "authors": [
+        {
+            "name":     "Casey McLaughlin",
+            "email":    "caseyamcl@gmail.com",
+            "homepage": "http://caseymclaughlin.com",
+            "role":     "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "~5.0",
+        "phpunit/phpunit":   "~4.0",
+        "mockery/mockery":   "~0.9",
+        "symfony/console": "~2.5",
+        "symfony/dependency-injection": "~2.5",
+        "symfony/config": "~2.5",
+        "symfony/yaml": "~2.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Phpoaipmh": ["src/", "tests"]
+        },
+        "psr-4": {
+            "Phpoaipmh\\Example\\": "example/src/"
+        }
+    }
+}
