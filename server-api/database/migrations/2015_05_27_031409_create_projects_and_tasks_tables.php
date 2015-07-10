@@ -24,9 +24,9 @@ class CreateProjectsAndTasksTables extends Migration {
 			$table->increments('id');
 			$table->string('name')->default('');
 			$table->text('description')->default('');
-			$table->string('time')->default('');
+			$table->string('user')->default('');
 			$table->string('url')->default('');
-			$table->string('url_alt')->default('');
+			$table->text('metadata')->default('');
 			$table->timestamps();
 		});
 
@@ -64,11 +64,13 @@ class CreateProjectsAndTasksTables extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('az_area');
+		DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+		Schema::drop('az_subject');
 		Schema::drop('az_database');
+		Schema::drop('az_area');
 		Schema::drop('az_database_area');
 		Schema::drop('az_database_subject');
-		Schema::drop('az_subject');
+		DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 	}
 
 }

@@ -96,7 +96,7 @@ class Client
         //$url = $this->url . (parse_url($this->url, PHP_URL_QUERY) ? '&' : '?') . http_build_query($params);
         $url = $this->url .'?' . http_build_query($params);
 
-	echo  "<br /><br />URL: ".$url."<br /><br />";
+	//echo  "<br /><br />URL: ".$url."<br /><br />";
         //Do the request
         try {
             $resp = $this->httpClient->request($url);

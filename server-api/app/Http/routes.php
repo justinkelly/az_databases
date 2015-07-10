@@ -27,6 +27,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::resource('AZDatabase', 'AZDatabaseController');
 Route::resource('AZArea', 'AZAreaController');
+Route::resource('Import', 'ImportController');
 Route::resource('AZSubject', 'AZSubjectController');
 Route::resource('AZDatabaseArea', 'AZDatabaseAreaController');
 Route::resource('AZDatabaseSubject', 'AZDatabaseSubjectController');
@@ -43,6 +44,9 @@ Route::get('database/list', [
 ]);
 Route::get('database/list/{list}', [
     'as' => 'database_list', 'uses' => 'AZDatabaseController@index'
+]);
+Route::get('database/area/{area_id}/subject/{subject_id}', [
+    'as' => 'database_subject', 'uses' => 'AZDatabaseController@byAreaSubject'
 ]);
 Route::get('database/subject/{subject_id}', [
     'as' => 'database_subject', 'uses' => 'AZDatabaseController@bySubject'

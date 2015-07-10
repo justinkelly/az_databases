@@ -16,7 +16,7 @@ class AZAreaController extends Controller {
 	public function index()
 	{
 		//
-		$AZArea =  AZArea::all();
+		$AZArea =  AZArea::orderBy('name', 'ASC')->get();
 		
 		return response()->json($AZArea->toArray());
 	#	return view('AZArea.index', compact('AZArea'));

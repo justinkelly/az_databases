@@ -6,5 +6,6 @@ class AZArea extends Model {
 
 	//
 	protected $table = 'az_area';
+	protected $fillable = ['name'];
 
 }

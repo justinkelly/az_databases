@@ -1,9 +1,10 @@
 <?php namespace az\Http\Controllers;
 
 use az\AZSubject;
+use az\AZArea;
 use az\Http\Requests;
 use az\Http\Controllers\Controller;
-
+use DB;
 use Illuminate\Http\Request;
 
 class AZSubjectController extends Controller {
@@ -16,9 +17,9 @@ class AZSubjectController extends Controller {
 	public function index()
 	{
 		//
-		$AZArea =  AZSubject::all();
+		$AZSubject =  AZSubject::orderBy('name', 'ASC')->get();
 		
-		return response()->json($AZArea->toArray());
+		return response()->json($AZSubject->toArray());
 	}
 
 	/**
@@ -54,7 +55,13 @@ class AZSubjectController extends Controller {
 	public function byArea($id)
 	{
 		//
-		$model = AZSubject::where('area_id', '=', $id)->get();
+		if(is_numeric($id)){
+			$model = AZSubject::where('area_id', '=', $id)->orderBy('name','ASC')->get();
+		} else {
+			$id = str_replace("-", " ", $id);
+			$model = AZArea::whereRaw('LOWER(name) = ?', [$id])->orderBy('name','ASC')->first();
+			$model = AZSubject::where('area_id', '=', $model->id)->orderBy('name','ASC')->get();
+		}
 		//$model =  AZSubject::all();
 		return response()->json($model->toArray());
 	}

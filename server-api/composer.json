@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*"
+		"laravel/framework": "5.0.*",
+		"caseyamcl/phpoaipmh": "~2.0",
+	        "guzzlehttp/guzzle":   "~5.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

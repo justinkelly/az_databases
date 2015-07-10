@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost/laravel/public/',
+	'url' => 'http://localhost/az_database/server-api/public/',
 
 	/*
 	|--------------------------------------------------------------------------
