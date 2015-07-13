@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Swinburne A-Z Databases</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <title>Swinburne Find a database</title>
+
     <script src="https://fb.me/react-0.13.3.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script
+      src="https://rawgit.com/flatiron/director/master/build/director.min.js">
+    </script>
+    <!-- Include global CSS and header Javascript -->
+    <meta charset="UTF-8">
 
-<!--[if IE]>
+    <!-- Viewport settings for mobile devices and IE9 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome CSS -->
+    <!--link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" /-->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <!-- Open Sans : Google Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,300,400,700,800" rel="stylesheet" type="text/css">
+
+    <!-- Primary CSS Stylesheet (styles-phasetwo.css) -->
+    <link rel="stylesheet" type="text/css" media="all" href="/media/swinburneeduau/style-assets/css/styles-phasetwo.css">
+
+    <!-- Primary CSS Stylesheet for IE8 (styles-old-ie-phasetwo.css) -->
+    <!--[if lt IE 9]>
+    	<link rel="stylesheet" type="text/css" media="" href="/media/swinburneeduau/style-assets/css/styles-old-ie-phasetwo.css" />
+    <![endif]-->
+        <!-- JQuery -->
+    <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/jquery-1.10.2.min.js"></script> <!-- JQuery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> <!-- JQuery UI -->
+
+    <!-- Modernizr -->
+    <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/modernizr-2.7.0.min.js"></script>
+
+
   <script>
 (function () {
   function CustomEvent (event, params) {
@@ -25,6 +55,9 @@
       var ef = function(){};
       window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
     }());
+
+
+
   </script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
@@ -32,10 +65,13 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
-<![endif]-->
 
-     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
        <style>
+       .researchbank-search-results .browse-results li a {
+    display: inline;
+    width: 266px;
+}
         .btn-group{width:96%;}
        .letterWide{margin-right: 3px;}
     #searchinput {
@@ -53,14 +89,137 @@
       cursor: pointer;
       color: #ccc;
     }
+
+    .researchbank-search .form-search .search--advanced {
+      margin-top: 19px
+    }
+      .library-search .buffer--bottom, .page-search-results .library-search .buffer--bottom {
+        margin-bottom: -2px;
+        text-align: center;
+    }
+    input.input-medium {
+      height: 32px;
+
+    }
+
+    @media (min-width: 47.5em)
+    {
+      .page-search-results .library-search .form-search .search-query .input-medium{
+        width: 75%;
+      }
+    }
+    .strong{
+      font-weight: bold;
+    }
+
   </style>
 
   </head>
-  <body>
-    <div id="content"></div>
-    <script type="text/jsx">
-      // Your code here
+
+    <body class="page-search-results page">
+
+      <!--noindex-->
+      <header class="banner l-wrapper" role="banner">
+        <div class="l-container">
+          <h1 id="swinburne-logo" class="brand-wrap l-fixed"> <a class="brand" href="http://www.swinburne.edu.au/">Swinburne - Swinburne University of Technology</a> </h1>
+          <div class="navigation">
+            <nav role="navigation">
+              <div class="row" id="nav-row-1">
+                <!-- Primary navigation -->
+                <ul id="nav--primary" class="nav nav--primary">
+                  <li><a href="http://www.swinburne.edu.au/study/" class="gtm-header">STUDY AT SWINBURNE</a></li>
+                  <li><a href="http://www.swinburne.edu.au/research/" class="gtm-header">RESEARCH</a></li>
+                  <li><a href="http://www.swinburne.edu.au/business-partnerships/" class="gtm-header">BUSINESS &amp; PARTNERSHIPS</a></li>
+                  <li><a href="http://www.swinburne.edu.au/study/international/" class="gtm-header">INTERNATIONAL</a></li>
+                </ul>
+                <div class="nav--tertiary-wrap">
+                  <div class="mobile-toggle">
+                    <button id="search-toggle-mobile" class="btn btn--mobile-toggle collapsed" type="button" data-toggle="collapse" data-target=".search-bar__form" aria-label="Search" title="Search">Search</button>
+                    <button id="navbar-toggle" type="button" class="navbar-toggle btn btn--mobile-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"> <span class="visually-hidden">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                  </div>
+                  <!-- Tertiary navigation -->
+                  <ul id="nav--tertiary" class="nav nav--tertiary">
+                      <li><a href="http://www.swinburne.edu.au/about/" class="gtm-header">ABOUT</a>
+                        <ul class="sub-nav">
+                          <li><a href="http://www.swinburne.edu.au/about/our-university/" class="gtm-header">Our university</a></li>
+                          <li><a href="http://www.swinburne.edu.au/faculties-tafe/" class="gtm-header">Faculties and vocational education (TAFE)</a></li>
+                          <li><a href="http://www.swinburne.edu.au/chancellery/vc/" class="gtm-header">The Vice-Chancellor</a></li>
+                          <li><a href="https://swinjobs.nga.net.au" class="gtm-header">Jobs at Swinburne</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="http://www.swinburne.edu.au/contacts-campuses/" class="gtm-header">CONTACTS</a>
+                        <ul class="sub-nav">
+                          <li><a href="http://www.swinburne.edu.au/contacts-campuses/contact/" class="gtm-header">Contact us</a></li>
+                          <li><a href="http://www.swinburne.edu.au/contacts-campuses/campuses/" class="gtm-header">Campuses</a></li>
+                          <li><a href="http://www.swinburne.edu.au/directory" class="gtm-header">Staff directory</a></li>
+                          <li><a href="http://www.swinburne.edu.au/media-centre/media-contacts/" class="gtm-header">Media enquiries</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="http://www.swinburne.edu.au/lib/" class="gtm-header">LIBRARY</a></li>
+                      <li><a href="http://www.swinburne.edu.au/staff/" class="gtm-header">STAFF</a></li>
+                      <li><a href="http://www.swinburne.edu.au/student/" class="gtm-header">CURRENT STUDENTS</a></li>
+                  </ul>
+                </div>
+                <!-- /.nav--tertiary-wrap -->
+              </div>
+              <!-- /.row -->
+
+              <div class="row" id="nav-row-2">
+                  <!-- Secondary navigation -->
+                  <ul id="nav--currentsection" class="nav nav--currentsection">
+                      <li class="is-active"><a href="/research/">Library</a></li>
+                  </ul>
+                  <ul id="nav--secondary" class="nav nav--secondary">
+                      <li><span class="currentbranch0"><a href="http://www.swinburne.edu.au/library/search">Search</a></span></li>
+                      <li><a href="http://www.swinburne.edu.au/library/referencing">Referencing</a></li>
+                      <li><a href="http://www.swinburne.edu.au/library/study-spaces-and-computers">Study spaces and computers</a></li>
+                      <li><a href="http://www.swinburne.edu.au/library/about">About the Library</a></li>
+                      <li><a href="http://www.swinburne.edu.au/library/services-teachers">Services for teachers</a></li>
+                      <li><a href="http://www.swinburne.edu.au/library/services-researchers">Services for researchers</a></li>
+                  </ul>
+              </div>
+              <!-- /.row -->
+
+            </nav>
+            <div id="search-bar" class="search-bar">
+              <button id="search-toggle-desktop" class="btn btn--mobile-toggle collapsed" type="button" aria-label="Search" title="Search">Search</button>
+              <div class="search-bar__form collapse">
+                  <!-- Site Search generated by site manager -->
+                  <form id="home-search" method="get" action="http://search.swinburne.edu.au/s/search.html" class="form-search">
+                    <label for="home-search-query" class="visually-hidden">Search</label>
+                    <input type="text" class="searchbox input-medium" id="home-search-query" name="query" value="" placeholder="Search..." required />
+                    <input type="hidden" name="collection" id="home-search-collection" value="swinburne-internet-meta" />
+                    <input type="submit" class="btn btn--primary" id="home-search-submit" value="Search" />
+                  </form>
+              </div>
+            </div>
+            <!-- /.search-bar -->
+
+            <div class="navbar-collapse"> </div>
+          </div>
+          <!-- /.navigation -->
+
+        </div>
+      </header>
+      <!--endnoindex-->
+
+                                      <div id="content"></div>
+<script type="text/javascript">
+  var url = document.URL;
+  var re = /\#/gi;
+  var found = url.match(re);
+
+  if(found == null)
+  {
+    //console.log('Redirect:' + url);
+    window.location = "http://www.swinburne.edu.au/lib/tools/az/#/";
+  }
+</script>
+
+<script type="text/jsx">
+
 var AreaBox = React.createClass({
+
    loadAreasFromServer: function() {
     $.ajax({
       url: this.props.url,
@@ -74,17 +233,53 @@ var AreaBox = React.createClass({
       }.bind(this)
     });
   },
-  loadDatabasesFromServer: function(database_list, database_list_id) {
+
+  loadDatabasesFromServer: function(database_list, database_list_id, database_list_area, database_list_subject) {
     if(database_list == null){
-      database_list = this.props.database_list; 
-    } 
+      database_list = this.props.database_list;
+    }
     if(database_list_id == null){
-      database_list_id = this.props.database_list_id; 
-    } 
-    
+      database_list_id = this.props.database_list_id;
+    }
+
     if(database_list != null)
     {
-      db_url = this.props.url_database+'/'+database_list+'/'+database_list_id;
+
+      if(database_list_area != null && database_list_subject != null)
+      {
+          db_url = this.props.url_database+'/area/' + database_list_area+'/subject/'+database_list_subject;
+      } else {
+        db_url = this.props.url_database+'/'+database_list+'/'+database_list_id;
+      }
+      /*set search terms*/
+      String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+      }
+      if(database_list_area ){
+        database_list_area = database_list_area.replace(/-/g, ' ').capitalize();
+      }
+      if(database_list_subject){
+        database_list_subject = database_list_subject.replace(/-/g, ' ').capitalize();
+      }
+
+      switch(database_list)
+      {
+        case 'az':
+          this.setState({search_term: database_list_id});
+          break;
+        case 'search':
+          this.setState({search_term: database_list_id});
+          break;
+        case 'area':
+          this.setState({search_term: database_list_area});
+          break;
+        case 'subject':
+          this.setState({search_term: database_list_area + ' > ' + database_list_subject});
+          break;
+        default:
+          this.setState({search_term: null});
+      }
+
     } else{
       db_url = this.props.url_database+'/list';
     }
@@ -94,6 +289,7 @@ var AreaBox = React.createClass({
       cache: false,
       success: function(data) {
         this.setState({database: data});
+        this.setState({results_count: data.length});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url_database, status, err.toString());
@@ -102,10 +298,19 @@ var AreaBox = React.createClass({
   },
 
   areaClickEvent: function(e) {
-     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+     this.loadDatabasesFromServer(
+        e.detail.database_list,
+        e.detail.database_list_id,
+        e.detail.database_list_area
+        );
   },
   subjectClickEvent: function(e) {
-     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+     this.loadDatabasesFromServer(
+        e.detail.database_list,
+        e.detail.database_list_id,
+        e.detail.database_list_area,
+        e.detail.database_list_subject
+        );
   },
   azClickEvent: function(e) {
      this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
@@ -114,19 +319,26 @@ var AreaBox = React.createClass({
      if(e.detail.database_list_id != null)
      {
       this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
-    } else{ 
+    } else{
       this.loadDatabasesFromServer('list');
     }
+  },
+  homeEvent: function(e) {
+      this.loadDatabasesFromServer('list');
   },
   componentWillMount: function() {
     window.addEventListener("area_click_event", this.areaClickEvent, false);
     window.addEventListener("subject_click_event", this.subjectClickEvent, false);
     window.addEventListener("az_click_event", this.azClickEvent, false);
      window.addEventListener("search_event", this.searchEvent, false);
+     window.addEventListener("home_event", this.homeEvent, false);
   },
   componentWillUnmount: function() {
     window.removeEventListener("area_click_event", this.areaClickEvent, false);
     window.removeEventListener("subject_click_event", this.subjectClickEvent, false);
+    window.removeEventListener("az_click_event", this.azClickEvent, false);
+    window.removeEventListener("search_event", this.searchEvent, false);
+    window.removeEventListener("home_event", this.homeEvent, false);
   },
 
   getInitialState: function() {
@@ -134,78 +346,83 @@ var AreaBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadAreasFromServer();
-    this.loadDatabasesFromServer();
-    setInterval(this.loadAreasFromServer, this.props.pollInterval);
-    setInterval(this.loadDatabasesFromServer, this.props.pollInterval);
   },
+
   render: function() {
+
+    function createMarkup() { return {__html: '>'}; };
     return (
-      <div className="container">
-        <div className="row">
-    
-          <div className="col-md-4">
-               <div className="areaBox">
-               <h1>Search</h1>
-                <SearchBox />
-               <h1>A-Z</h1>
-                <AZList />
-              <h1>Area</h1>
-              <AreaList data={this.state.data} />
-            </div>
+      <div>
 
-         </div>
+        <div className="l-wrapper l-wrapper--main">
+          <div className="l-container">
+            <div className="l-fluid">
+                  <div className="content" id="content">
+                    <main className="main">
+                          <section id="main-content" className="main-content">
 
-          <div className="col-md-8">
-            <div className="databaseBox">
-              <h1>Databases</h1>
-              <DatabaseList data={this.state.database} />
+                                <ul className="breadcrumbs">
+                                <li><a href="http://www.swinburne.edu.au/library">Library</a>  <span dangerouslySetInnerHTML={createMarkup()} /> <a href="http://www.swinburne.edu.au/library/search">Search</a></li>
+                                </ul>
+
+                                <h1>Find a database</h1>
+
+                                <div className="find-a-course library-search researchbank-search">
+                                    <div id="course-search-interface">
+
+                                          <SearchBox />
+
+                                    </div>
+                                </div>
+
+                                <aside className="refine-search refine-search--site-search">
+                                    <h3>Refine your search</h3>
+
+                                      <AreaList data={this.state.data} />
+
+                                </aside>
+
+                                <div className="search-results site-search-results researchbank-search-results">
+                                  <div className="search-total">
+                                      <span className="search-total__label"><ResultsCount data={this.state.results_count} /> <SearchTerm data={this.state.search_term} /></span>
+                                    </div>
+
+                                    <ul className="browse-results first-level-menu">
+
+                                              <div className="container">
+                                                <div className="row">
+
+                                                      <DatabaseList data={this.state.database} />
+
+                                                </div>
+                                              </div>
+
+                                    </ul>
+                                    <div className="clearfix"></div>
+
+                                </div>
+
+                        </section>
+                      </main>
+                  </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+
+                                               </div>
+
+
+
+
+
+
     );
   }
 });
 
 
-var AreaList = React.createClass({
-  //arealist hodler for area
 
-  componentDidMount: function() {
-   // this.loadSubjectsFromServer();
-  },
-
-/*
-  render: function() {
-    
-    var createItem = function(card, index) {
-      return (
-        <div className='areaItem'>
-         <div className="area">
-              <a ref="link" href="#" name={card.name} area_id={card.id} onClick={this.handleAreaClick.bind(this, card.id)} >{card.name}</a>
-         </div>
- 
-        </div>
-      );
-    }.bind(this);
-
-    return <div id='cards'>{ this.props.data.map(createItem) }</div>;
-   }
-*/
-  render: function() {
-      var commentNodes = this.props.data.map(function (comment) {
-        return (
-          <Area key={comment.id} area_id={comment.id} name={comment.name} />
-        );
-    });
-    return (
-      <div className="areaList">
-       {commentNodes}
-      </div>
-    );
-  }
- 
-});
 
 var SearchBox = React.createClass({
 
@@ -215,7 +432,7 @@ var SearchBox = React.createClass({
 
 
     clearAndFocusInput: function() {
-      this.setState({userInput:'',showClear:false}); 
+      this.setState({userInput:'',showClear:false});
 
       var customEvent = new CustomEvent("search_event",  {
             detail: { database_list: 'list'},
@@ -229,24 +446,24 @@ var SearchBox = React.createClass({
 
     handleChange: function(e) {
 
-        this.setState({userInput: e.target.value});    
-
+        this.setState({userInput: e.target.value});
+        this.setState({search_term: e.target.value});
         text = this.refs.filterTextInput.getDOMNode().value;
-        
+
         if(text ==''){
           text = null;
-          this.setState({showClear:false}); 
+          this.setState({showClear:false});
         } else {
-          this.setState({showClear:true}); 
+          this.setState({showClear:true});
         }
         var customEvent = new CustomEvent("search_event",  {
-            detail: { 
+            detail: {
               database_list: 'search',
               database_list_id: text },
             bubbles: true
            });
 
-     
+
           //this.refs.link.getDOMNode().dispatchEvent(customEvent);
           //this.refs.filterTextInput.getDOMNode().value,
 
@@ -257,27 +474,84 @@ var SearchBox = React.createClass({
     },
 
     render: function() {
-        return (
-            <form>
-              <div className="btn-group">         
-                <input
-                    type="search"
-                    className="form-control"
-                    placeholder="Search..."
-                    value={this.state.userInput}
-                    ref="filterTextInput"
-                    onChange={this.handleChange}
-                />
-                 { this.state.showClear ? <span onClick={this.clearAndFocusInput} id="searchclear" className="glyphicon glyphicon-remove-circle"></span> :  null }
-                 </div>
 
-            </form>
+      var search_link="#/search/"+this.state.userInput;
+
+        return (
+
+          <form id="frs-search-interface-form" className="form-search" method="post" action={search_link} enctype="application/x-www-form-urlencoded">
+
+            <fieldset className="search-query">
+
+                  <label className="visually-hidden" for="keyword">Enter keyword</label>
+                  <input
+                      type="search"
+                      autocomplete="off"
+                      className="input-medium"
+                      placeholder="Search..."
+                      value={this.state.userInput}
+                      ref="filterTextInput"
+                      onChange={this.handleChange}
+                  />
+                <button type="submit" name="search" className="btn btn--primary library-search--submit"><span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</button>
+              </fieldset>
+              <div className="clearfix"></div>
+<div className="search--advanced uppercase buffer--bottom">
+
+                <ul className="alphabet-links">
+
+                    <AZList />
+
+                </ul>
+              </div>
+      </form>
         );
     }
 });
 
-var AZList = React.createClass({
+var ResultsCount = React.createClass({
 
+  render: function() {
+
+    var resultsCount = this.props.data;
+
+    return (
+      <span className="resultsCount">
+       <strong>{resultsCount}</strong> results
+      </span>
+    );
+  }
+
+});
+
+var SearchTerm = React.createClass({
+
+  render: function() {
+    var searchTerm = this.props.data;
+    return (
+      <span className="searchTerm">
+      { searchTerm ?  <SearchTermComponent data={searchTerm} />  : null }
+      </span>
+    );
+  }
+
+});
+var SearchTermComponent = React.createClass({
+
+  render: function() {
+    var searchTerm = this.props.data;
+
+    return (
+      <span className="searchTerm">
+        <strong>{searchTerm}</strong>
+      </span>
+    );
+  }
+
+});
+
+
+var AZList = React.createClass({
 
   render: function() {
 
@@ -295,17 +569,16 @@ var AZList = React.createClass({
        {commentNodes}
       </div>
     );
-  }   
+  }
 
 });
-
 
 var AZ = React.createClass({
 
    handleAZClick: function(area_click) {
 
     var customEvent = new CustomEvent("az_click_event",  {
-      detail: { 
+      detail: {
        database_list: 'az',
        database_list_id: area_click },
       bubbles: true
@@ -315,12 +588,34 @@ var AZ = React.createClass({
   },
 
   render: function() {
-
-    return (<span>
-          <a ref="link"  className='letterWide'  href="#" name={this.props.letter} letter="{this.props.letter}" onClick={this.handleAZClick.bind(this, this.props.letter)} >{this.props.letter}</a>
-          </span>
+    $letter = '#/letter/'+ this.props.letter;
+    return (<li>
+          <a ref="link"  className='letterWide'  href={$letter} name={this.props.letter} letter="{this.props.letter}" onClick={this.handleAZClick.bind(this, this.props.letter)} >{this.props.letter}</a>
+          </li>
         );
     }
+
+});
+
+var AreaList = React.createClass({
+  //arealist hodler for area
+
+  componentDidMount: function() {
+   // this.loadSubjectsFromServer();
+  },
+
+  render: function() {
+      var commentNodes = this.props.data.map(function (comment) {
+        return (
+          <Area key={comment.id} area_id={comment.id} name={comment.name} open='false' />
+        );
+    });
+    return (
+      <div className="refine-accordion start-open areaList">
+       {commentNodes}
+      </div>
+      );
+  }
 
 });
 
@@ -328,57 +623,44 @@ var Area = React.createClass({
   //Area owns subjectlist
 
    handleAreaClick: function(area_click) {
- 
+
      if(this.state.showSubMenu == true)
      {
           this.setState({ showSubMenu: false });
       } else {
           this.setState({ showSubMenu: true });
      }
-
+/*
     var customEvent = new CustomEvent("area_click_event",  {
-      detail: { 
+      detail: {
        database_list: 'area',
        database_list_id: area_click },
       bubbles: true
     });
     this.refs.link.getDOMNode().dispatchEvent(customEvent);
-
+*/
   },
 
 
 
   getInitialState: function() {
     return {
-        subject: [],  
+        subject: [],
         showSubMenu: false
     };
   },
 
 
   render: function() {
-/*
-    var createItem = function(card, index) {
-      return (
-        <div id='card' key={index}>
-          <img onClick={this.props.onClick.bind(null, this)} src={ card.url } />
-        </div>
-      );
-    }.bind(this);
-
-    return (<div id='cards'>
-        { this.props.cards.map(createItem) }
-        </div>
-            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
-            )
-    }
-*/
+    $area_link_name = this.props.name.replace(/\s+/g, '-').toLowerCase();
+    $area_link = '#/area/'+ $area_link_name;
        return (
-        <div className='areaItem'>
-         <div className="area">
-              <a ref="link" href="#" name={this.props.name} area_id="{this.props.area_id}" onClick={this.handleAreaClick.bind(this, this.props.area_id)} >{this.props.name}</a>
-            </div>
-            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
+
+        <div className='refine-accordion start-open areaItem'>
+         <h3 className="area swin-accordion-heading">
+              <a ref="link" href={$area_link} name={this.props.name} area_id="{this.props.area_id}" onClick={this.handleAreaClick.bind(this, this.props.area_id)} >{this.props.name}</a>
+            </h3>
+            { this.state.showSubMenu ? <SubjectList area_name={this.props.name} area_id={this.props.area_id} />: null }
         </div>);
      }
 
@@ -387,7 +669,7 @@ var SubjectList = React.createClass({
 
   loadSubjectsFromServer: function(area_click) {
     $.ajax({
-      url: 'http://136.186.72.211/laravel/public/area/subject/'+ area_click,
+      url: 'http://www.swinburne.edu.au/lib/tools/az_server/public/area/subject/'+ area_click,
       dataType: 'json',
       cache: false,
       success: function(data) {
@@ -409,14 +691,17 @@ var SubjectList = React.createClass({
     this.loadSubjectsFromServer(this.props.area_id);
   },
   render: function() {
+      var areaName = this.props.area_name;
       var commentNodes = this.state.subject.map(function (comment) {
         return (
-          <Subject key={comment.id} subject_id={comment.id} name={comment.name}/>
+          <Subject key={comment.id} area_name={areaName} subject_id={comment.id} name={comment.name}/>
         );
     });
     return (
       <div className="subjectList">
+      <ul className="refine-filters">
        {commentNodes}
+       </ul>
       </div>
     );
   }
@@ -426,21 +711,26 @@ var Subject = React.createClass({
 
   handleSubjectClick: function(e) {
     //reload database list
+    /*
     var customEvent = new CustomEvent("subject_click_event",  {
-      detail: { 
+      detail: {
        database_list: 'subject',
        database_list_id: e },
       bubbles: true
     });
     this.refs.link.getDOMNode().dispatchEvent(customEvent);
-   
+    */
   },
 
   render: function() {
+    $subject_link_name = this.props.name.replace(/\s+/g, '-').toLowerCase();
+    $area_link_name = this.props.area_name.replace(/\s+/g, '-').toLowerCase();
+
+    $subject_link = '#/area/' + $area_link_name + '/subject/' + $subject_link_name;
         return (
-      <div className="subject">
-       &nbsp; &nbsp; <a ref="link" href="#" name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
-      </div>
+      <li className="subject">
+        <a ref="link" href={$subject_link} name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
+      </li>
     );
   }
 });
@@ -454,7 +744,7 @@ var DatabaseList = React.createClass({
   render: function() {
       var databaseNodes = this.props.data.map(function (comment) {
         return (
-          <Database author={comment.id} name={comment.name}  description={comment.description}  />
+          <Database author={comment.id} user={comment.user} url={comment.url} name={comment.name} description={comment.description}  />
         );
     });
     return (
@@ -467,22 +757,112 @@ var DatabaseList = React.createClass({
 
 var Database = React.createClass({
 
- 
+
   render: function() {
-     var rawMarkup = marked(this.props.description.toString(), {sanitize: true});
+     //var rawMarkup = this.props.description.toString();
+     //var rawUser = this.props.user.toString();
      return (
-      <div className="comment">
-       <a href="#">{this.props.name}</a>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
+      <li className="comment">
+       <strong><a target="_blank" href={this.props.url}>{this.props.name}</a></strong>
+        <span>{this.props.user}</span>
+        <span>{this.props.description}</span>
+      </li>
     );
   }
 });
 
 React.render(
-    <AreaBox url="http://136.186.72.211/laravel/public/AZArea" url_database="http://136.186.72.211/laravel/public/database" pollInterval={200000} />,
+    <AreaBox url="http://www.swinburne.edu.au/lib/tools/az_server/public/AZArea" url_database="http://www.swinburne.edu.au/lib/tools/az_server/public/database" pollInterval={20000000} />,
   document.getElementById('content')
 );
+
+
+      var letterRoute = function (letter) {
+       console.log("Letter: " + letter);
+
+       var customEvent = new CustomEvent("az_click_event",  {
+         detail: {
+          database_list: 'az',
+          database_list_id: letter },
+         bubbles: true
+       });
+       dispatchEvent(customEvent);
+
+      };
+
+       var areaSubjectRoute = function (area,subject) {
+
+        console.log("Area: " + area + " Subject: " +subject);
+
+        var customEvent = new CustomEvent("subject_click_event",  {
+          detail: {
+           database_list: 'subject',
+           database_list_id: subject,
+           database_list_area: area,
+           database_list_subject: subject
+           },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+
+      };
+
+      var homeRoute = function () {
+        console.log("Home route: ");
+
+        var customEvent = new CustomEvent("home_event",  {
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+      };
+      var areaRoute = function (area) {
+        console.log("Area route: " + area);
+
+        var customEvent = new CustomEvent("area_click_event",  {
+          detail: {
+           database_list: 'area',
+           database_list_id: area,
+           database_list_area: area },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+      };
+
+      var searchRoute = function (query) {
+
+          var customEvent = new CustomEvent("search_event",  {
+            detail: {
+              database_list: 'search',
+              database_list_id: query
+            },
+            bubbles: true
+          });
+
+          dispatchEvent(customEvent);
+
+          console.log("Search query: " + query);
+      };
+
+      var routes = {
+        '/area/:area/subject/:subject': areaSubjectRoute,
+        '/': homeRoute,
+        '/area/:area': areaRoute,
+        '/letter/:letter': letterRoute,
+        '/search/:query': searchRoute
+      };
+
+      var router = Router(routes).configure({
+        html5history: false
+        });
+
+      router.init();
+
     </script>
+    <!-- Include global footer Javascript -->
+    <!--#include virtual="/style-assets/html/footer/index.html"-->
+
   </body>
 </html>

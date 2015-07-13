@@ -1,9 +1,8 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews
-    </IfModule>
+Action  application/x-httpd-php /fcgi/php55
 
-    RewriteEngine On
+<IfModule mod_rewrite.c>
+
+        RewriteEngine On
 
 	<IfModule mod_headers.c>
 	    Header set Access-Control-Allow-Origin "*"
