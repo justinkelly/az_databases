@@ -24,7 +24,40 @@ class AZDatabaseController extends Controller {
 	}
 	public function search($term)
 	{
-		//a
+		//echo $term;
+			//handle searchs for titles
+
+		if(substr( $term, 0, 6 ) === "title:"){
+
+				//remove the title: from the start and trim the term
+				$term = explode('title:',$term);
+				$term = trim($term[1]);
+
+				$re = "/^\"/";
+
+				//handle quoted/exact title search
+					if(preg_match($re,$term)){
+
+							//remove the leadign and trailing "
+							$term = trim($term,'"');
+
+						//	echo 'Exact';
+						//		echo $term;
+						$AZSearch= DB::table('az_database')
+						->where('name', '=', "$term")
+						->orderBy('name','ASC')
+						->get();
+					} else {
+					//	echo 'NonExact';
+					//	  echo $term;
+						//non esact title search
+						$AZSearch= DB::table('az_database')
+						->where('name', 'LIKE', "%$term%")
+						->orderBy('name','ASC')
+						->get();
+			 		}
+		} else {
+		//normal search
 		$AZSearch= DB::table('az_database')
 			->where('name', 'LIKE', "%$term%")
 			->orWhere('description', 'LIKE', "%$term%")
@@ -32,15 +65,38 @@ class AZDatabaseController extends Controller {
 			->orWhere('url', 'LIKE', "%$term%")
 			->orderBy('name','ASC')
 			->get();
+		}
 
 		return response()->json($AZSearch);
 	}
 	public function byLetter($letter)
 	{
-		//
-		$AZArea =  AZDatabase::where('name', 'LIKE', "$letter%")->get();
 
-		return response()->json($AZArea->toArray());
+		$AZArea =  AZDatabase::where('name', 'LIKE', "$letter%")
+							->orWhere('name', 'LIKE', "The $letter%")
+							->orderBy('name','ASC')->get();
+
+    $AZLetter = $AZArea->toArray();
+
+   //LOOP ALLA -	IF TERM NOT T then remove leading The
+  if(!stristr('t',$letter))
+	{
+		foreach($AZLetter as $key=>$val)
+		{
+			if(substr( $val['name'], 0, 4 ) === "The ")
+			{
+				$AZLetter[$key]['name'] = ucfirst(substr( $val['name'], 4 ));
+			}
+		}
+
+		$tmp = Array();
+		foreach($AZLetter as &$ma) $tmp[] = &$ma["name"];
+
+		array_multisort($tmp,SORT_NATURAL | SORT_FLAG_CASE, $AZLetter);
+
+	}
+			 //sort arrat
+		return response()->json($AZLetter);
 	}
 	public function byArea($area_id)
 	{

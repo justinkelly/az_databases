@@ -36,12 +36,25 @@ class ImportController extends Controller {
 		$recs = $myEndpoint->listRecords('marc21',null,null,'LSS');
 
 		$area_subject_map=array();
+
+		echo "
+		<head><title>Swinburne AZ Database list</title>
+				<link href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css' rel='stylesheet'>
+			</head>
+		<body>
+		<div class='container'>
+		<h3>Swinburne: A-Z Database list</h3>
+		<table class='table table-striped'>
+		<tbody>
+		";
+
 		foreach($recs as $item) {
 
 			$data =simplexml_load_string($item->asXML());
 
 			if( isset($data->metadata->record->leader) )
 			{
+				echo "<tr><td>";
 				$title='';
 				$alt_title='';
 				$url='';
@@ -56,7 +69,7 @@ class ImportController extends Controller {
 				$database_area_subject_map=array();
 				foreach ($data->metadata->record->datafield as $field)
 				{
-					switch((string) $field['tag']) 
+					switch((string) $field['tag'])
 					{
 						case '245':
 							foreach($field->subfield as $sub)
@@ -122,7 +135,7 @@ class ImportController extends Controller {
 								switch((string) $sub['code']) {
 									case 'a':
 										if(stristr($sub,'Concurrent'))
-										{ 
+										{
 											$user = $sub;
 										}
 										break;
@@ -162,8 +175,9 @@ class ImportController extends Controller {
 							if($subject) echo '<i>-- Subject: </i>'. $subject."<br />";
 							break;
 					}
-
+					echo "</td></tr>";
 				}
+				echo "</tbody></table>";
 
 				//do the import stuff
 				//Area

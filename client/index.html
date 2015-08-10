@@ -1,219 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
-    <title>Swinburne Find a database</title>
-
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-    <script
-      src="https://rawgit.com/flatiron/director/master/build/director.min.js">
-    </script>
-    <!-- Include global CSS and header Javascript -->
-    <meta charset="UTF-8">
-
-    <!-- Viewport settings for mobile devices and IE9 -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Font Awesome CSS -->
-    <!--link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" /-->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
-    <!-- Open Sans : Google Fonts -->
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,300,400,700,800" rel="stylesheet" type="text/css">
-
-    <!-- Primary CSS Stylesheet (styles-phasetwo.css) -->
-    <link rel="stylesheet" type="text/css" media="all" href="/media/swinburneeduau/style-assets/css/styles-phasetwo.css">
-
-    <!-- Primary CSS Stylesheet for IE8 (styles-old-ie-phasetwo.css) -->
-    <!--[if lt IE 9]>
-    	<link rel="stylesheet" type="text/css" media="" href="/media/swinburneeduau/style-assets/css/styles-old-ie-phasetwo.css" />
-    <![endif]-->
-        <!-- JQuery -->
-    <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/jquery-1.10.2.min.js"></script> <!-- JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> <!-- JQuery UI -->
-
-    <!-- Modernizr -->
-    <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/modernizr-2.7.0.min.js"></script>
+<head>
 
 
-  <script>
-(function () {
-  function CustomEvent (event, params) {
-    params = params || { bubbles: false, cancelable: false, detail: undefined };
-    var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-    return evt;
-   };
-  CustomEvent.prototype = window.CustomEvent.prototype;
-  window.CustomEvent = CustomEvent;
-})();
-
-    (function(){
-      var ef = function(){};
-      window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
-    }());
-
-
-
-  </script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
-
-
-       <style>
-       .researchbank-search-results .browse-results li a {
-    display: inline;
-    width: 266px;
-}
-        .btn-group{width:96%;}
-       .letterWide{margin-right: 3px;}
-    #searchinput {
-     /*width: 200px;*/
-    }
-
-    #searchclear {
-      position: absolute;
-      right: 5px;
-      top: 0;
-      bottom: 0;
-      height: 14px;
-      margin: auto;
-      font-size: 14px;
-      cursor: pointer;
-      color: #ccc;
-    }
-
-    .researchbank-search .form-search .search--advanced {
-      margin-top: 19px
-    }
-      .library-search .buffer--bottom, .page-search-results .library-search .buffer--bottom {
-        margin-bottom: -2px;
-        text-align: center;
-    }
-    input.input-medium {
-      height: 32px;
-
-    }
-
-    @media (min-width: 47.5em)
-    {
-      .page-search-results .library-search .form-search .search-query .input-medium{
-        width: 75%;
-      }
-    }
-    .strong{
-      font-weight: bold;
-    }
-
-  </style>
-
-  </head>
-
-    <body class="page-search-results page">
-
-      <!--noindex-->
-      <header class="banner l-wrapper" role="banner">
-        <div class="l-container">
-          <h1 id="swinburne-logo" class="brand-wrap l-fixed"> <a class="brand" href="http://www.swinburne.edu.au/">Swinburne - Swinburne University of Technology</a> </h1>
-          <div class="navigation">
-            <nav role="navigation">
-              <div class="row" id="nav-row-1">
-                <!-- Primary navigation -->
-                <ul id="nav--primary" class="nav nav--primary">
-                  <li><a href="http://www.swinburne.edu.au/study/" class="gtm-header">STUDY AT SWINBURNE</a></li>
-                  <li><a href="http://www.swinburne.edu.au/research/" class="gtm-header">RESEARCH</a></li>
-                  <li><a href="http://www.swinburne.edu.au/business-partnerships/" class="gtm-header">BUSINESS &amp; PARTNERSHIPS</a></li>
-                  <li><a href="http://www.swinburne.edu.au/study/international/" class="gtm-header">INTERNATIONAL</a></li>
-                </ul>
-                <div class="nav--tertiary-wrap">
-                  <div class="mobile-toggle">
-                    <button id="search-toggle-mobile" class="btn btn--mobile-toggle collapsed" type="button" data-toggle="collapse" data-target=".search-bar__form" aria-label="Search" title="Search">Search</button>
-                    <button id="navbar-toggle" type="button" class="navbar-toggle btn btn--mobile-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"> <span class="visually-hidden">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                  </div>
-                  <!-- Tertiary navigation -->
-                  <ul id="nav--tertiary" class="nav nav--tertiary">
-                      <li><a href="http://www.swinburne.edu.au/about/" class="gtm-header">ABOUT</a>
-                        <ul class="sub-nav">
-                          <li><a href="http://www.swinburne.edu.au/about/our-university/" class="gtm-header">Our university</a></li>
-                          <li><a href="http://www.swinburne.edu.au/faculties-tafe/" class="gtm-header">Faculties and vocational education (TAFE)</a></li>
-                          <li><a href="http://www.swinburne.edu.au/chancellery/vc/" class="gtm-header">The Vice-Chancellor</a></li>
-                          <li><a href="https://swinjobs.nga.net.au" class="gtm-header">Jobs at Swinburne</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="http://www.swinburne.edu.au/contacts-campuses/" class="gtm-header">CONTACTS</a>
-                        <ul class="sub-nav">
-                          <li><a href="http://www.swinburne.edu.au/contacts-campuses/contact/" class="gtm-header">Contact us</a></li>
-                          <li><a href="http://www.swinburne.edu.au/contacts-campuses/campuses/" class="gtm-header">Campuses</a></li>
-                          <li><a href="http://www.swinburne.edu.au/directory" class="gtm-header">Staff directory</a></li>
-                          <li><a href="http://www.swinburne.edu.au/media-centre/media-contacts/" class="gtm-header">Media enquiries</a></li>
-                        </ul>
-                      </li>
-                      <li><a href="http://www.swinburne.edu.au/lib/" class="gtm-header">LIBRARY</a></li>
-                      <li><a href="http://www.swinburne.edu.au/staff/" class="gtm-header">STAFF</a></li>
-                      <li><a href="http://www.swinburne.edu.au/student/" class="gtm-header">CURRENT STUDENTS</a></li>
-                  </ul>
-                </div>
-                <!-- /.nav--tertiary-wrap -->
-              </div>
-              <!-- /.row -->
-
-              <div class="row" id="nav-row-2">
-                  <!-- Secondary navigation -->
-                  <ul id="nav--currentsection" class="nav nav--currentsection">
-                      <li class="is-active"><a href="/research/">Library</a></li>
-                  </ul>
-                  <ul id="nav--secondary" class="nav nav--secondary">
-                      <li><span class="currentbranch0"><a href="http://www.swinburne.edu.au/library/search">Search</a></span></li>
-                      <li><a href="http://www.swinburne.edu.au/library/referencing">Referencing</a></li>
-                      <li><a href="http://www.swinburne.edu.au/library/study-spaces-and-computers">Study spaces and computers</a></li>
-                      <li><a href="http://www.swinburne.edu.au/library/about">About the Library</a></li>
-                      <li><a href="http://www.swinburne.edu.au/library/services-teachers">Services for teachers</a></li>
-                      <li><a href="http://www.swinburne.edu.au/library/services-researchers">Services for researchers</a></li>
-                  </ul>
-              </div>
-              <!-- /.row -->
-
-            </nav>
-            <div id="search-bar" class="search-bar">
-              <button id="search-toggle-desktop" class="btn btn--mobile-toggle collapsed" type="button" aria-label="Search" title="Search">Search</button>
-              <div class="search-bar__form collapse">
-                  <!-- Site Search generated by site manager -->
-                  <form id="home-search" method="get" action="http://search.swinburne.edu.au/s/search.html" class="form-search">
-                    <label for="home-search-query" class="visually-hidden">Search</label>
-                    <input type="text" class="searchbox input-medium" id="home-search-query" name="query" value="" placeholder="Search..." required />
-                    <input type="hidden" name="collection" id="home-search-collection" value="swinburne-internet-meta" />
-                    <input type="submit" class="btn btn--primary" id="home-search-submit" value="Search" />
-                  </form>
-              </div>
-            </div>
-            <!-- /.search-bar -->
-
-            <div class="navbar-collapse"> </div>
-          </div>
-          <!-- /.navigation -->
-
-        </div>
-      </header>
-      <!--endnoindex-->
-
-                                      <div id="content"></div>
+</head>
+<body class="page-search-results page">
+<div id="az_content"></div>
 <script type="text/javascript">
+
+  /* AZ Configuration */
+  var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
+
+  /*Rerdirect / to /#/ */
   var url = document.URL;
   var re = /\#/gi;
   var found = url.match(re);
 
   if(found == null)
   {
-    //console.log('Redirect:' + url);
-    window.location = "http://www.swinburne.edu.au/lib/tools/az/#/";
+    window.location.href = "#/";
   }
+  /*Search form*/
+  window.onload = function() {
+   document.getElementById('search_form_input').onkeypress = function searchKeyPress(event) {
+      if (event.keyCode == 13) {
+
+        event.preventDefault();
+            document.getElementById('search_form_click').click();
+          return false;
+      }
+  };
+}
+
 </script>
 
 <script type="text/jsx">
@@ -222,14 +40,14 @@ var AreaBox = React.createClass({
 
    loadAreasFromServer: function() {
     $.ajax({
-      url: this.props.url,
+      url: AZ_server + '/AZArea',
       dataType: 'json',
-      cache: false,
+      cache: true,
       success: function(data) {
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error( AZ_server + '/AZArea', status, err.toString());
       }.bind(this)
     });
   },
@@ -247,9 +65,9 @@ var AreaBox = React.createClass({
 
       if(database_list_area != null && database_list_subject != null)
       {
-          db_url = this.props.url_database+'/area/' + database_list_area+'/subject/'+database_list_subject;
+          db_url = AZ_server+'/database/area/' + database_list_area+'/subject/'+database_list_subject;
       } else {
-        db_url = this.props.url_database+'/'+database_list+'/'+database_list_id;
+          db_url = AZ_server+'/database/'+database_list+'/'+database_list_id;
       }
       /*set search terms*/
       String.prototype.capitalize = function() {
@@ -281,20 +99,25 @@ var AreaBox = React.createClass({
       }
 
     } else{
-      db_url = this.props.url_database+'/list';
+      db_url = AZ_server+'/database/list';
     }
     $.ajax({
       url: db_url,
       dataType: 'json',
-      cache: false,
+      cache: true,
       success: function(data) {
         this.setState({database: data});
         this.setState({results_count: data.length});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url_database, status, err.toString());
+        console.error(db_url, status, err.toString());
       }.bind(this)
     });
+  },
+
+  handleRefineClick: function(e) {
+      e.preventDefault();
+     $('#area_list_id').toggle();
   },
 
   areaClickEvent: function(e) {
@@ -354,18 +177,8 @@ var AreaBox = React.createClass({
     return (
       <div>
 
-        <div className="l-wrapper l-wrapper--main">
-          <div className="l-container">
-            <div className="l-fluid">
-                  <div className="content" id="content">
-                    <main className="main">
-                          <section id="main-content" className="main-content">
 
-                                <ul className="breadcrumbs">
-                                <li><a href="http://www.swinburne.edu.au/library">Library</a>  <span dangerouslySetInnerHTML={createMarkup()} /> <a href="http://www.swinburne.edu.au/library/search">Search</a></li>
-                                </ul>
-
-                                <h1>Find a database</h1>
+                                <h1>Databases</h1>
 
                                 <div className="find-a-course library-search researchbank-search">
                                     <div id="course-search-interface">
@@ -375,14 +188,15 @@ var AreaBox = React.createClass({
                                     </div>
                                 </div>
 
-                                <aside className="refine-search refine-search--site-search">
-                                    <h3>Refine your search</h3>
+                                <aside id="area_list_top_id"  className="refine-search refine-search--site-search">
+
+                                    <h3 className="swin-accord"><a href='/#/refine' onClick={this.handleRefineClick.bind()}>Refine your search</a></h3>
 
                                       <AreaList data={this.state.data} />
 
                                 </aside>
 
-                                <div className="search-results site-search-results researchbank-search-results">
+                                <div id="search_results_top_id" className="search-results site-search-results researchbank-search-results">
                                   <div className="search-total">
                                       <span className="search-total__label"><ResultsCount data={this.state.results_count} /> <SearchTerm data={this.state.search_term} /></span>
                                     </div>
@@ -399,22 +213,15 @@ var AreaBox = React.createClass({
 
                                     </ul>
                                     <div className="clearfix"></div>
+                                    <div><a href="http://www.swinburne.edu.au/library-2015/about/plans-policies/terms-of-use-online-resources/">Terms of use for online resources</a>
+                                      &nbsp;
+                                      &nbsp;
+                                        <a href="http://www.swinburne.edu.au/library-2015/search/help/troubleshoot-database-access/">Troubleshooting database access</a>
+                                    </div>
 
                                 </div>
 
-                        </section>
-                      </main>
-                  </div>
-                </div>
-            </div>
-        </div>
-
-
                                                </div>
-
-
-
-
 
 
     );
@@ -439,9 +246,7 @@ var SearchBox = React.createClass({
             bubbles: true
       });
       dispatchEvent(customEvent);
-      //this.setState({userInput: ''}); // Clear the input
-      // We wish to focus the <input /> now!
-      //this.refs.filterTextInput.getDOMNode().value
+
     },
 
     handleChange: function(e) {
@@ -463,23 +268,22 @@ var SearchBox = React.createClass({
             bubbles: true
            });
 
-
-          //this.refs.link.getDOMNode().dispatchEvent(customEvent);
-          //this.refs.filterTextInput.getDOMNode().value,
-
-
-          dispatchEvent(customEvent);
-
-
     },
 
     render: function() {
 
-      var search_link="#/search/"+this.state.userInput;
+      var search_link="#/search/"+encodeURIComponent(this.state.userInput);
 
         return (
 
-          <form id="frs-search-interface-form" className="form-search" method="post" action={search_link} enctype="application/x-www-form-urlencoded">
+          <form
+            id="frs-search-interface-form"
+            className="form-search"
+            method="post"
+            action={search_link}
+            onsubmit="return false;"
+            enctype="application/x-www-form-urlencoded"
+            >
 
             <fieldset className="search-query">
 
@@ -488,12 +292,13 @@ var SearchBox = React.createClass({
                       type="search"
                       autocomplete="off"
                       className="input-medium"
-                      placeholder="Search..."
+                      placeholder="Search for a database..."
                       value={this.state.userInput}
                       ref="filterTextInput"
                       onChange={this.handleChange}
+                      id="search_form_input"
                   />
-                <button type="submit" name="search" className="btn btn--primary library-search--submit"><span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</button>
+                <a href={search_link} name="search" id="search_form_click" className="btn btn--primary library-search--submit"><span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</a>
               </fieldset>
               <div className="clearfix"></div>
 <div className="search--advanced uppercase buffer--bottom">
@@ -514,10 +319,16 @@ var ResultsCount = React.createClass({
   render: function() {
 
     var resultsCount = this.props.data;
-
+   if(resultsCount == '0')
+    {
+      $results_wording = 'No results ';
+      resultsCount == null;
+    } else {
+      $results_wording = ' results ';
+    }
     return (
       <span className="resultsCount">
-       <strong>{resultsCount}</strong> results
+      <strong>{resultsCount}</strong> {$results_wording}
       </span>
     );
   }
@@ -528,9 +339,13 @@ var SearchTerm = React.createClass({
 
   render: function() {
     var searchTerm = this.props.data;
+    if(searchTerm){
+      var for_word = 'for ';
+    }
     return (
       <span className="searchTerm">
-      { searchTerm ?  <SearchTermComponent data={searchTerm} />  : null }
+      {for_word}
+      { searchTerm ? <SearchTermComponent data={searchTerm} />  : null }
       </span>
     );
   }
@@ -539,7 +354,7 @@ var SearchTerm = React.createClass({
 var SearchTermComponent = React.createClass({
 
   render: function() {
-    var searchTerm = this.props.data;
+    var searchTerm = decodeURIComponent(this.props.data);
 
     return (
       <span className="searchTerm">
@@ -598,7 +413,6 @@ var AZ = React.createClass({
 });
 
 var AreaList = React.createClass({
-  //arealist hodler for area
 
   componentDidMount: function() {
    // this.loadSubjectsFromServer();
@@ -611,7 +425,7 @@ var AreaList = React.createClass({
         );
     });
     return (
-      <div className="refine-accordion start-open areaList">
+      <div ref="area_list_top" className="refine-accordion start-open areaList" id="area_list_id">
        {commentNodes}
       </div>
       );
@@ -620,7 +434,6 @@ var AreaList = React.createClass({
 });
 
 var Area = React.createClass({
-  //Area owns subjectlist
 
    handleAreaClick: function(area_click) {
 
@@ -669,14 +482,14 @@ var SubjectList = React.createClass({
 
   loadSubjectsFromServer: function(area_click) {
     $.ajax({
-      url: 'http://www.swinburne.edu.au/lib/tools/az_server/public/area/subject/'+ area_click,
+      url: AZ_server + '/area/subject/'+ area_click,
       dataType: 'json',
-      cache: false,
+      cache: true,
       success: function(data) {
         this.setState({subject: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(AZ_server + '/area/subject/'+ area_click, status, err.toString());
       }.bind(this)
     });
   },
@@ -709,17 +522,24 @@ var SubjectList = React.createClass({
 
 var Subject = React.createClass({
 
+
   handleSubjectClick: function(e) {
-    //reload database list
-    /*
-    var customEvent = new CustomEvent("subject_click_event",  {
-      detail: {
-       database_list: 'subject',
-       database_list_id: e },
-      bubbles: true
-    });
-    this.refs.link.getDOMNode().dispatchEvent(customEvent);
-    */
+
+    //if desktop
+    if ( $( window ).width() <= '1200')
+    {
+
+      var divPosition = $('#search_results_top_id').offset();
+      $('html, body').animate({scrollTop: divPosition.top}, "fast");
+    }
+
+    if ( $( window ).width() > '1200' && $(document).scrollTop() >= '450')
+    {
+
+      var divPosition = $('#search_results_top_id').offset();
+      $('html, body').animate({scrollTop: divPosition.top}, "fast");
+    }
+
   },
 
   render: function() {
@@ -772,13 +592,12 @@ var Database = React.createClass({
 });
 
 React.render(
-    <AreaBox url="http://www.swinburne.edu.au/lib/tools/az_server/public/AZArea" url_database="http://www.swinburne.edu.au/lib/tools/az_server/public/database" pollInterval={20000000} />,
-  document.getElementById('content')
+    <AreaBox />,
+    document.getElementById('az_content')
 );
 
 
       var letterRoute = function (letter) {
-       console.log("Letter: " + letter);
 
        var customEvent = new CustomEvent("az_click_event",  {
          detail: {
@@ -791,8 +610,6 @@ React.render(
       };
 
        var areaSubjectRoute = function (area,subject) {
-
-        console.log("Area: " + area + " Subject: " +subject);
 
         var customEvent = new CustomEvent("subject_click_event",  {
           detail: {
@@ -809,7 +626,6 @@ React.render(
       };
 
       var homeRoute = function () {
-        console.log("Home route: ");
 
         var customEvent = new CustomEvent("home_event",  {
           bubbles: true
@@ -818,7 +634,6 @@ React.render(
 
       };
       var areaRoute = function (area) {
-        console.log("Area route: " + area);
 
         var customEvent = new CustomEvent("area_click_event",  {
           detail: {
@@ -843,7 +658,6 @@ React.render(
 
           dispatchEvent(customEvent);
 
-          console.log("Search query: " + query);
       };
 
       var routes = {
@@ -851,7 +665,12 @@ React.render(
         '/': homeRoute,
         '/area/:area': areaRoute,
         '/letter/:letter': letterRoute,
-        '/search/:query': searchRoute
+        "/search/([._a-zA-Z0-9-\\% ]+)": {
+            on: function (queryText) {
+                queryText = decodeURIComponent(queryText);
+                searchRoute(queryText);
+              }
+            }
       };
 
       var router = Router(routes).configure({
@@ -861,8 +680,6 @@ React.render(
       router.init();
 
     </script>
-    <!-- Include global footer Javascript -->
-    <!--#include virtual="/style-assets/html/footer/index.html"-->
 
   </body>
 </html>
