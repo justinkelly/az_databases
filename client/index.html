@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="text/javascript">
 
+    /* AZ Configuration */
+    var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
+
+  </script>
+
+ <!-- ReactJS files -->
+  <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script
+    src="https://rawgit.com/flatiron/director/master/build/director.min.js">
+  </script>
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/jquery-1.10.2.min.js"></script> <!-- JQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> <!-- JQuery UI -->
+
+  <!-- Modernizr -->
+  <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/modernizr-2.7.0.min.js"></script>
+
+  <!-- CustomEvents and Console log support for IE -->
+  <script type="text/javascript">
+    (function () {
+    function CustomEvent (event, params) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+    return evt;
+    };
+    CustomEvent.prototype = window.CustomEvent.prototype;
+    window.CustomEvent = CustomEvent;
+    })();
+
+    (function(){
+      var ef = function(){};
+      window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
+    }());
+    </script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
 
 </head>
 <body class="page-search-results page">
 <div id="az_content"></div>
 <script type="text/javascript">
-
-  /* AZ Configuration */
-  var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
 
   /*Rerdirect / to /#/ */
   var url = document.URL;
