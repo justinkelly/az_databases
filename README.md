@@ -5,17 +5,28 @@
 
 AZ Databases provides a modern database discovery application for University libraries that is completely based on the ExLibris Alma APIs
 
+Swinburne: http://www.swinburne.edu.au/library/search/databases/#/
+
+
+* Completely based on ExLirbis Alma APIs
+ *  All data is stored in Alma as Marc records, there is no duplcation of data or normalisation 
+* 
+
 # Motivation
 
-Swinburne had been using a largely unchanged collection of static HTML pages to list our available databases by A-Z for almost 20 years. This very basically served its purpose but issues where data was inconsisten data, double handled (saved in html and also in the klibrary system), no dyanmaic content
+Swinburne had been using a largely unchanged collection of static HTML pages to list our available databases by A-Z for almost 20 years. This very basically served its purpose but issues with inconsistent data, double handling (saved in html and also in the library system), no dyanmaic content or filters by area or subject, and no real search.
 
-Swinburne http://web.archive.org/web/20140923101818/http://www.swinburne.edu.au/lib/database/databaselist_a.htm
+Following a survey or other University librarys AZ systems (refer links below) we decided to create a new AZ system similar to UTSs but based 100% on the ExLirbis Alma APIs
 
-* UTS - custom python app (http://www.lib.uts.edu.au/databases/search_databases.py)
-* Deakin - custom php app (http://www.deakin.edu.au/library/a-z/databases.php)
-* Monash - libgudes (http://guides.lib.monash.edu/subject-databases)
-* Harvard - ExLibris Metalib (http://e-research.lib.harvard.edu/V?func=find-db-1)
-* Princeton - Solr and Drupal (http://library.princeton.edu/research/databases)
+## AZ Database examples:
+
+
+* Swinburne previous AZ: static html -> http://web.archive.org/web/20140923101818/http://www.swinburne.edu.au/lib/database/databaselist_a.htm
+* UTS - custom python app -> http://www.lib.uts.edu.au/databases/search_databases.py
+* Deakin - custom php app -> http://www.deakin.edu.au/library/a-z/databases.php
+* Monash - libgudes -> http://guides.lib.monash.edu/subject-databases
+* Harvard - ExLibris Metalib ->http://e-research.lib.harvard.edu/V?func=find-db-1
+* Princeton - Solr and Drupal -> http://library.princeton.edu/research/databases
 
 # Features
 
