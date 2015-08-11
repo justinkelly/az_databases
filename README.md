@@ -22,7 +22,7 @@ Following a survey or other University librarys AZ systems (refer links below) w
 * Swinburnes previous AZ (static html) http://web.archive.org/web/20140923101818/http://www.swinburne.edu.au/lib/database/databaselist_a.htm
 * UTS (custom python app) http://www.lib.uts.edu.au/databases/search_databases.py
 * Deakin (custom php app) http://www.deakin.edu.au/library/a-z/databases.php
-* Monash (libgudes) http://guides.lib.monash.edu/subject-databases
+* Monash (libguides) http://guides.lib.monash.edu/subject-databases
 * Harvard (ExLibris Metalib) http://e-research.lib.harvard.edu/V?func=find-db-1
 * Princeton (Solr and Drupal) http://library.princeton.edu/research/databases
 
