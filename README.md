@@ -1,4 +1,5 @@
 # AZ Databases
+![main image](docs/images/swin_az.png)
 
 # Synopsis
 
