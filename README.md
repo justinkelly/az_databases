@@ -17,7 +17,7 @@ Swinburne had been using a largely unchanged collection of static HTML pages to 
 
 Following a survey or other University librarys AZ systems (refer links below) we decided to create a new AZ system similar to UTSs but based 100% on the ExLirbis Alma APIs
 
-## AZ Database examples:
+## Examples of other AZ Database system
 
 * Swinburnes previous AZ (static html) http://web.archive.org/web/20140923101818/http://www.swinburne.edu.au/lib/database/databaselist_a.htm
 * UTS (custom python app) http://www.lib.uts.edu.au/databases/search_databases.py
