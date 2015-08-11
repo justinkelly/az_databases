@@ -1,12 +1,11 @@
 # AZ Databases
+AZ Databases provides a modern database discovery application for University libraries that is based on the ExLibris Alma APIs
+
 ![main image](docs/images/swin_az.png)
 
 # Synopsis
 
-AZ Databases provides a modern database discovery application for University libraries that is completely based on the ExLibris Alma APIs
-
 Swinburne: http://www.swinburne.edu.au/library/search/databases/#/
-
 
 * Completely based on ExLirbis Alma APIs
  *  All data is stored in Alma as Marc records, there is no duplcation of data or normalisation 
