@@ -3,13 +3,16 @@ AZ Databases provides a modern database discovery application for University lib
 
 ![main image](docs/images/swin_az.png)
 
-# Synopsis
+Live example: [](http://www.swinburne.edu.au/library/search/databases/#/)
 
-Swinburne: http://www.swinburne.edu.au/library/search/databases/#/
+# Aim
 
 * Completely based on ExLirbis Alma APIs
  *  All data is stored in Alma as Marc records, there is no duplcation of data or normalisation 
-* 
+* Modern design
+ * Responsive
+ * Single page applicaiton, no page refreshed
+* [Permanent links](#permanent-links)
 
 # Motivation
 
