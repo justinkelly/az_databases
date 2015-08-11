@@ -11,8 +11,10 @@ Live example: [](http://www.swinburne.edu.au/library/search/databases/#/)
  *  All data is stored in Alma as Marc records, there is no duplcation of data or normalisation 
 * Modern design
  * Responsive
- * Single page applicaiton, no page refreshed
-* [Permanent links](#permanent-links)
+ * Single page javascript based applicaiton
+ * No page refreshes anywhere
+ * Infinite scrolling (no paginatioon)
+* [Permanent links](#permanent-links) for everything
 
 # Motivation
 
