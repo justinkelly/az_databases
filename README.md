@@ -3,23 +3,28 @@
 
 # Synopsis
 
-Director is a router. Routing is the process of determining what code to run
-when a URL is requested.
+AZ Databases provides a modern database discovery application for University libraries that is completely based on the ExLibris Alma APIs
 
 # Motivation
 
-A routing library that works in both the browser and node.js environments with
-as few differences as possible. Simplifies the development of Single Page Apps
-and Node.js applications. Dependency free (doesn't require jQuery or Express,
-etc).
+Swinburne had been using a largely unchanged collection of static HTML pages to list our available databases by A-Z for almost 20 years. This very basically served its purpose but issues where data was inconsisten data, double handled (saved in html and also in the klibrary system), no dyanmaic content
+
+Swinburne http://web.archive.org/web/20140923101818/http://www.swinburne.edu.au/lib/database/databaselist_a.htm
+
+* UTS - custom python app (http://www.lib.uts.edu.au/databases/search_databases.py)
+* Deakin - custom php app (http://www.deakin.edu.au/library/a-z/databases.php)
+* Monash - libgudes (http://guides.lib.monash.edu/subject-databases)
+* Harvard - ExLibris Metalib (http://e-research.lib.harvard.edu/V?func=find-db-1)
+* Princeton - Solr and Drupal (http://library.princeton.edu/research/databases)
 
 # Features
 
-* [Permanent links](#permanent-link)
+* [Permanent links](#permanent-links)
+* [Title searching](#title-searching)
 
 # Usage
 
-* [API Documentation](#api-documentation)
+* [Server API Documentation](#server-api-documentation)
 * [Frequently Asked Questions](#faq)
 
 ## Permanent links
@@ -96,3 +101,6 @@ http://www.swinburne.edu.au/library/search/databases/#/search/title%3A%20%22ebsc
  
 By using title searches in AZ Databases you can create links to a group or an single title.
  
+## Server API Documentation
+
+## Frequently Asked Questions
