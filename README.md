@@ -36,38 +36,38 @@ Below are examples of all the different linking types in AZ Databases
 Links to an Category (such as Engineering)
 http://www.swinburne.edu.au/library/search/databases/#/area/engineering
 
-![cat](images/linking-cat.png)
+![cat](docs/images/linking-cat.png)
 
 ### Sub-category
 Linking to an Sub-Category (such as Engineering > Civil)
 http://www.swinburne.edu.au/library/search/databases/#/area/engineering/subject/civil
 
-![cat](images/linking-sub-cat.png) 
+![cat](docs/images/linking-sub-cat.png) 
 ### Letters
 
 Links to Letters (such as G)
 http://www.swinburne.edu.au/library/search/databases/#/letter/G
 
-![cat](images/linking-letter.png)
+![cat](docs/images/linking-letter.png)
 
 ## Search
 
 Linking to search results (such as scopus)
 http://www.swinburne.edu.au/library/search/databases/#/search/scopus
 
-![cat](images/linking-search.png)
+![cat](docs/images/linking-search.png)
 ### Title search
 
 Linking to title searches (such as scopus)
 http://www.swinburne.edu.au/library/search/databases/#/search/title%3Ascopus
 
-![cat](images/linking-title-search.png)
+![cat](docs/images/linking-title-search.png)
 ### Exact title search
 
 Linking to exact title search (such as "ebscohost")
 http://www.swinburne.edu.au/library/search/databases/#/search/title%3A%20%22ebscohost%22
 
-![cat](images/linking-title-exact.png)
+![cat](docs/images/linking-title-exact.png)
 
 ## Title searching
 
@@ -79,19 +79,19 @@ refer link and screenshot below
 
 http://www.swinburne.edu.au/library/search/databases/#/search/ebscohost
 
-![search](images/search.png)
+![search](docs/images/search.png)
 
 By adding title: to the start of the search query we can limit to a title search for ebscohost, this returns the 2 database with ebscohost in the title
 refer link and screenshot below
 http://www.swinburne.edu.au/library/search/databases/#/search/title%3Aebscohost
 
-![search](images/search-title.png)
+![search](docs/images/search-title.png)
 
 By putting quotes around the search term we can limit to an exact title search, this returns just 1 result - which is the main ebscohost database
 refer link and screenshot below
 http://www.swinburne.edu.au/library/search/databases/#/search/title%3A%20%22ebscohost%22
 
-![search](images/search-title-exact.png)
+![search](docs/images/search-title-exact.png)
  
 By using title searches in AZ Databases you can create links to a group or an single title.
  
