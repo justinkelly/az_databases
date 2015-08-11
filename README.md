@@ -3,24 +3,26 @@ AZ Databases provides a modern database discovery application for University lib
 
 ![main image](docs/images/swin_az.png)
 
-Live example: [](http://www.swinburne.edu.au/library/search/databases/#/)
+Live example: [http://www.swinburne.edu.au/library/search/databases/#/](http://www.swinburne.edu.au/library/search/databases/#/)
 
-# Aim
+# Features
 
 * Completely based on ExLirbis Alma APIs
  *  All data is stored in Alma as Marc records, there is no duplcation of data or normalisation 
+* Filtering by category and sub-category (Such and 'Engineering' and then 'Mechanical' or 'Electricial')
 * Modern design
  * Responsive
  * Single page javascript based applicaiton
  * No page refreshes anywhere
  * Infinite scrolling (no paginatioon)
 * [Permanent links](#permanent-links) for everything
+* Searches across most of the MARC fields in the Alma records
 
 # Motivation
 
 Swinburne had been using a largely unchanged collection of static HTML pages to list our available databases by A-Z for almost 20 years. This very basically served its purpose but issues with inconsistent data, double handling (saved in html and also in the library system), no dyanmaic content or filters by area or subject, and no real search.
 
-Following a survey or other University librarys AZ systems (refer links below) we decided to create a new AZ system similar to UTSs but based 100% on the ExLirbis Alma APIs
+Following a survey or other University librarys AZ systems (refer links below) we decided to create a new AZ system similar to UTSs but based 100% on the ExLirbis Alma APIs and released as open-source.
 
 ## Examples of other AZ Database system
 
@@ -31,13 +33,10 @@ Following a survey or other University librarys AZ systems (refer links below) w
 * Harvard (ExLibris Metalib) http://e-research.lib.harvard.edu/V?func=find-db-1
 * Princeton (Solr and Drupal) http://library.princeton.edu/research/databases
 
-# Features
+# Documentation
 
 * [Permanent links](#permanent-links)
 * [Title searching](#title-searching)
-
-# Usage
-
 * [Server API Documentation](#server-api-documentation)
 * [Frequently Asked Questions](#faq)
 
