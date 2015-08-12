@@ -68,9 +68,10 @@ The Alma setup is detailed in these sections:
 #### PHP
 The server component on AZ Databases uses the Laravel PHP framework. This requries a server with PHP 5.5 and MySQL.
 
-To install thsi componey copy the 'server' folder onto your webserver
+To install this component, copy the 'server' folder onto your webserver
 
 Copy the file '.env.example' and rename it as '.env'. This file contains the MySQL database connection details, fill in the below listed fields with the appropraite data fro your environment
+
 
 ```
 DB_HOST=localhost
@@ -79,16 +80,33 @@ DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
 
+
+TODO: MORE DETAILS TO COME
+
 #### MySQL
 
 Create a blank database on your MySQL server and record the details in the above listed '.env' file
 
 AZ Databases will auto create the correct database tables when it imports data from the Alma API.
 
-Note: 
+Note: The PHP app will import that Databases info fro the Alma API and store in in MySQL in a format suitable for the front end client - so can easily do Cateigy and Sub-category filtering, fullt ext searching etc..
+
+Each time the import runs it fully deletes the contents of the MySQL database and does a full import from Alma.  
+
+The data in MySQL is jsut a temp store for the Alma data. No edits are done to the MySQL data - all changes are dont in Alma.
 
 ### Client
 
+Edit the 'index.html' file in the 'client' folder and change the URL for 'AZ_server' to be the path to the PHP app/server that was setup in the previous step
+
+```
+    /* AZ Configuration */
+    var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
+```    
+
+Copy the 'client' folder to a webserver and open the directory up in your web-browser
+
+Done :)
 
 ## Permanent links
 
