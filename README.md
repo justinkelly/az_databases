@@ -17,7 +17,7 @@ Live example: [http://www.swinburne.edu.au/library/search/databases/#/](http://w
 * Filtering by category and sub-category (Such and 'Engineering' and then 'Mechanical' or 'Electricial')
 * Modern design
  * Responsive
- * Single page javascript based applicaiton
+ * Single page javascript based applicaiton (using reactjs)
  * No page refreshes anywhere
  * Infinite scrolling (no paginatioon)
 * Letter filters - find databases starting with selected letter
