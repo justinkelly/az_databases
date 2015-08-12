@@ -1,6 +1,11 @@
 # AZ Databases
 AZ Databases provides a modern database discovery application for University libraries that is based on the ExLibris Alma APIs
 
+Free/Open source alternative to:
+* ExLibris MetaLibs - Find a Database feature
+* SpringShares Libguides (if using it just to store,list and group databases)
+* ExLibris Primo - Find Database feature
+
 ![main image](docs/images/swin_az.png)
 
 Live example: [http://www.swinburne.edu.au/library/search/databases/#/](http://www.swinburne.edu.au/library/search/databases/#/)
