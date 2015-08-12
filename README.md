@@ -40,12 +40,55 @@ Following a survey or other University librarys AZ systems (refer links below) w
 
 # Documentation
 
+* [Installation](#installation)
 * [Permanent links](#permanent-links)
 * [Title searching](#title-searching)
 * [Alma configuration](#alma-configuration)
 * [MARC field usage](#marc-fields)
 * [Server API Documentation](#server-api-documentation)
 * [Frequently Asked Questions](#faq)
+
+## Installation
+
+AZ Databases consists of 3 mains sections
+
+* The ExLibris Alma
+* A PHP/MySQL server
+* A javascript based client
+
+### ExLibris Alma
+
+The Alma setup is detailed in these sections:
+
+* [Alma configuration](#alma-configuration)
+* [MARC field usage](#marc-fields)
+
+### PHP/MySQL Server
+
+#### PHP
+The server component on AZ Databases uses the Laravel PHP framework. This requries a server with PHP 5.5 and MySQL.
+
+To install thsi componey copy the 'server' folder onto your webserver
+
+Copy the file '.env.example' and rename it as '.env'. This file contains the MySQL database connection details, fill in the below listed fields with the appropraite data fro your environment
+
+```
+DB_HOST=localhost
+DB_DATABASE=homestead
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
+
+#### MySQL
+
+Create a blank database on your MySQL server and record the details in the above listed '.env' file
+
+AZ Databases will auto create the correct database tables when it imports data from the Alma API.
+
+Note: 
+
+### Client
+
 
 ## Permanent links
 
