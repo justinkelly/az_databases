@@ -20,6 +20,7 @@ Live example: [http://www.swinburne.edu.au/library/search/databases/#/](http://w
  * Single page javascript based applicaiton
  * No page refreshes anywhere
  * Infinite scrolling (no paginatioon)
+* Letter filters - find databases starting with selected letter
 * [Permanent links](#permanent-links) for everything
 * Searches across most of the MARC fields in the Alma records
 
