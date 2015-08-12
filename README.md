@@ -42,6 +42,8 @@ Following a survey or other University librarys AZ systems (refer links below) w
 
 * [Permanent links](#permanent-links)
 * [Title searching](#title-searching)
+* [Alma configuration](#alma-configuration)
+* [MARC field usage](#marc-fields)
 * [Server API Documentation](#server-api-documentation)
 * [Frequently Asked Questions](#faq)
 
@@ -119,6 +121,74 @@ http://www.swinburne.edu.au/library/search/databases/#/search/title%3A%20%22ebsc
  
 By using title searches in AZ Databases you can create links to a group or an single title.
  
+## Alma configuration
+
+## MARC fields
+
+* 245a = title
+* 246a = alt title - can be multiple
+* 260a and b = place of publication and publisher
+* 960a = subject - can be multiple 
+ * This field defines that top level category the database will be listed in - suxh as 'Engineering'
+* 960b = sub-subject - got to think about this - Swinburne defined list (A-Z Subject mapping)
+*  * This field defines that second level (sub-category) the database will be listed in - such as 'Electrical'
+* 650a = sub subject - can be multiple- LC headings
+* 520a = description
+* 500a = user limit notes
+* 362a = time span
+* 917a = URL
+
+Sample record in ALMA
+
+```
+NB this record does not have an 588 or a 362 marc tag.
+=LDR  03136nai  2200565 a 4500
+=001  9933340611501361
+=005  20150612094406.0
+=006  m\\\\\\\\e\\\\\\\\
+=007  cr\mnu---uuuuu
+=008  120123c199u9999enkmr\d\sia\\\0\\\a2eng\d
+=019  \\$a9933340611501361
+=019  \\$a9933340611501361
+=019  \\$a9933340611501361
+=019  \\$a9933340611501361
+=035  \\$a(AuCNLKIN)000048489615
+=040  \\$aCLONE$beng$dVMOU
+=245  00$aERIC$h[electronic resource].
+=246  3\$aEducational Resources Information Center database
+=260  \\$a[Cambridge, Eng.] :$bProQuest.
+=310  \\$aUpdated monthly
+=588  \\$aTitle from database search screen (viewed January 23, 2012)
+=500  \\$aDatabase coverage: 1994 to present.
+=506  \\$aRestricted to users at subscribing institutions.
+=520  \\$aThis bibliographic database indexes and abstracts published and unpublished literature in the field of education. Source documents include journal articles, conference papers, government documents, theses, reports, audiovisual media, bibliographies, research reports, curriculum and teaching guides, and books.
+=520  8\$aMajor areas of subject coverage include: adult, career, and vocational education; counseling and personnel services; elementary and early childhood education; education management; handicapped and gifted children; higher education; information resources; junior colleges; languages and linguistics; reading and communication skills; rural education and small schools; science; mathematics; environmental education; social studies and social science education; teacher education; tests, measurement and evaluation; and, urban education.
+=538  \\$aMode of access: World Wide Web.
+=550  \\$aERIC is supported by the U.S. Department of Education's Office of Educational Research and Improvement and is administered by the U.S. National Library of Education (NLE)
+=580  \\$aCorresponds to two print publications: Resources in education (RIE) and, Current index to journals in education (CIJE).
+=650  \0$aEducation$vIndexes.
+=650  \0$aEducation$vAbstracts.
+=650  \0$aEducation$vPeriodicals$vIndexes.
+=650  \0$aEducation$vPeriodicals$vAbstracts.
+=650  \0$aEducation$zUnited States$vIndexes.
+=650  \0$aEducation$zUnited States$vAbstracts.
+=650  \0$aEducation$zUnited States$vPeriodicals$vIndexes.
+=650  \0$aEducation$zUnited States$vPeriodicals$vAbstracts.
+=710  2\$aEducational Resources Information Center (U.S.)
+=710  2\$aProQuest (Firm)
+=730  02$aResources in education
+=730  02$aCurrent index to journals in education
+=787  0\$tResources in education$w(DLC)75655211$w(OCoLC)2241688
+=787  0\$tCurrent index to journals in education$w(DLC)sc 78001463$w(OCoLC)1565633
+=830  \0$aSwinburne library databases
+=914  \\$aESWLD
+=914  \\$aEPROQ
+=917  40$ahttp://search.proquest.com/eric/socialsciences/fromDatabasesLayer?accountid=14205
+=960  \\$aBusiness$bAccounting
+=960  \\$aBusiness$bTaxation
+=960  \\$aInformation technology$bDatabases
+```
+
 ## Server API Documentation
 
 ## Frequently Asked Questions
