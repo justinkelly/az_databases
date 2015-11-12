@@ -42,8 +42,13 @@ class ImportController extends Controller {
 
 			if( isset($data->metadata->record->leader) )
 			{
+					echo "<br />";
+					echo "<br />";
+				$titles = array();
+			
 				$title='';
 				$alt_title='';
+				$alt_title_type='';
 				$url='';
 				$description='';
 				$user='';
@@ -56,6 +61,7 @@ class ImportController extends Controller {
 				$database_area_subject_map=array();
 				foreach ($data->metadata->record->datafield as $field)
 				{
+				$alt_title_type='';
 					switch((string) $field['tag']) 
 					{
 						case '245':
@@ -71,6 +77,7 @@ class ImportController extends Controller {
 								}
 
 							}
+							array_push($titles,(string)$title);
 							echo '<i>Title: </i><b>'. $title."</b><br />";
 							break;
 						case '246':
@@ -84,8 +91,30 @@ class ImportController extends Controller {
 								}
 
 							}
-							$metadata .= $alt_title ." : ";
-							echo '<i>Alt Title: </i>'. $alt_title."<br />";
+							switch ((string) $field['ind1']):
+								case '1':
+									//real alt title
+									array_push($titles,(string)$alt_title);
+									$alt_title_type='Additional record';
+									$metadata .= $alt_title ." : ";
+									break;	
+								case '3':
+									//searchable -= add to metatdata
+									$alt_title_type='searchable';
+									$metadata .= $alt_title ." : ";
+									break;	
+								case ' ':
+									//mistake - add to metadata
+									$alt_title_type='ERROR';
+									$metadata .= $alt_title ." : ";
+									break;	
+								default:
+									$alt_title_type='NO DATA:'. $field['ind1'] ;
+									$metadata .= $alt_title ." : ";
+									break;	
+							endswitch;
+
+							echo '<i>Alt Title ('.$alt_title_type.'): </i>'. $alt_title."<br />";
 							break;
 						case '917':
 							//url
@@ -208,7 +237,7 @@ class ImportController extends Controller {
 
 					}
 				}
-				print_r($area_map);
+			//	print_r($area_map);
 
 			}
 

@@ -23,10 +23,19 @@ foreach($recs as $item) {
 
 	$data =simplexml_load_string($item->asXML());
 
+
 	if( $data->metadata->record->leader )
 	{
 	echo "<tr><td>";
+/*
+echo "<br />";
+var_dump($data->metadata->record);
+echo "<br />";
+echo "<br />";
+echo "<hr />";
+*/
 	//	echo "Leader:". $data->metadata->record->leader. "<br />";
+		//echo "MMS ID: ". $data->metadata->record->controlfield[5]. "<br />";
 		$title='';
 		$alt_title='';
 		$url='';
@@ -50,10 +59,11 @@ foreach($recs as $item) {
 					}
 
 			}
-			echo '<i>Title: </i><b>'. $title."</b><br />";
+			echo $title."<br />";
 			break;
 		    case '246':
 			//alt title
+			var_dump($field);
 			foreach($field->subfield as $sub)
 			{
 				    switch((string) $sub['code']) {
@@ -63,7 +73,7 @@ foreach($recs as $item) {
 					}
 
 			}
-			echo '<i>Alt Title: </i>'. $alt_title."<br />";
+			//echo '<i>Alt Title: </i>'. $alt_title."<br />";
 			break;
 		    case '917':
 			//url
@@ -76,7 +86,7 @@ foreach($recs as $item) {
 					}
 
 			}
-			echo '<i>URL: </i>'. $url ."</br >";
+			//echo '<i>URL: </i>'. $url ."</br >";
 			break;
 		    case '520':
 			//descriptionitle
@@ -89,7 +99,7 @@ foreach($recs as $item) {
 					}
 
 			}
-			echo 'Description: </i>'. $description ."<br />";
+			//echo 'Description: </i>'. $description ."<br />";
 			break;
 		    case '500':
 			//uer limit
@@ -108,7 +118,7 @@ foreach($recs as $item) {
 
 			}
 			if($user){
-				echo '<i>User: </i>'. $user ."<br />";
+			//	echo '<i>User: </i>'. $user ."<br />";
 			}
 			break;
 		    case '960':
@@ -126,8 +136,8 @@ foreach($recs as $item) {
 					}
 
 			}
-			echo '<i>Area: </i>'. $area."<br />";
-			if($subject) echo '<i>-- Subject: </i>'. $subject."<br />";
+			//echo '<i>Area: </i>'. $area."<br />";
+			//if($subject) echo '<i>-- Subject: </i>'. $subject."<br />";
 			break;
 		    }
 			//get title
