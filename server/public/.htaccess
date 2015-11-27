@@ -1,0 +1,18 @@
+#Action  application/x-httpd-php /fcgi/php55
+
+<IfModule mod_rewrite.c>
+
+        RewriteEngine On
+
+	<IfModule mod_headers.c>
+	    Header set Access-Control-Allow-Origin "*"
+	</IfModule>
+
+    # Redirect Trailing Slashes...
+    RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+    # Handle Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -1,111 +1,182 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Swinburne A-Z Databases</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="https://fb.me/react-0.13.3.js"></script>
-    <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+<head>
+  <script type="text/javascript">
 
-<!--[if IE]>
-  <script>
-(function () {
-  function CustomEvent (event, params) {
+    /* AZ Configuration */
+    var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
+
+  </script>
+
+ <!-- ReactJS files -->
+  <script src="https://fb.me/react-0.13.3.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script
+    src="https://rawgit.com/flatiron/director/master/build/director.min.js">
+  </script>
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/jquery-1.10.2.min.js"></script> <!-- JQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script> <!-- JQuery UI -->
+
+  <!-- Modernizr -->
+  <script type="text/javascript" src="/media/swinburneeduau/style-assets/javascript/modernizr-2.7.0.min.js"></script>
+
+  <!-- CustomEvents and Console log support for IE -->
+  <script type="text/javascript">
+    (function () {
+    function CustomEvent (event, params) {
     params = params || { bubbles: false, cancelable: false, detail: undefined };
     var evt = document.createEvent('CustomEvent');
     evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
     return evt;
-   };
-  CustomEvent.prototype = window.CustomEvent.prototype;
-  window.CustomEvent = CustomEvent;
-})();
+    };
+    CustomEvent.prototype = window.CustomEvent.prototype;
+    window.CustomEvent = CustomEvent;
+    })();
 
     (function(){
       var ef = function(){};
       window.console = window.console || {log:ef,warn:ef,error:ef,dir:ef};
     }());
-  </script>
+    </script>
+
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
-<![endif]-->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
 
-     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-       <style>
-        .btn-group{width:96%;}
-       .letterWide{margin-right: 3px;}
-    #searchinput {
-     /*width: 200px;*/
-    }
+</head>
+<body class="page-search-results page">
+<div id="az_content"></div>
+<script type="text/javascript">
 
-    #searchclear {
-      position: absolute;
-      right: 5px;
-      top: 0;
-      bottom: 0;
-      height: 14px;
-      margin: auto;
-      font-size: 14px;
-      cursor: pointer;
-      color: #ccc;
-    }
-  </style>
+  /*Rerdirect / to /#/ */
+  var url = document.URL;
+  var re = /\#/gi;
+  var found = url.match(re);
 
-  </head>
-  <body>
-    <div id="content"></div>
-    <script type="text/jsx">
-      // Your code here
+  if(found == null)
+  {
+    window.location.href = "#/";
+  }
+  /*Search form*/
+  window.onload = function() {
+   document.getElementById('search_form_input').onkeypress = function searchKeyPress(event) {
+      if (event.keyCode == 13) {
+
+        event.preventDefault();
+            document.getElementById('search_form_click').click();
+          return false;
+      }
+  };
+}
+
+</script>
+
+<script type="text/jsx">
+
 var AreaBox = React.createClass({
+
    loadAreasFromServer: function() {
     $.ajax({
-      url: this.props.url,
+      url: AZ_server + '/AZArea',
       dataType: 'json',
-      cache: false,
+      cache: true,
       success: function(data) {
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-  loadDatabasesFromServer: function(database_list, database_list_id) {
-    if(database_list == null){
-      database_list = this.props.database_list; 
-    } 
-    if(database_list_id == null){
-      database_list_id = this.props.database_list_id; 
-    } 
-    
-    if(database_list != null)
-    {
-      db_url = this.props.url_database+'/'+database_list+'/'+database_list_id;
-    } else{
-      db_url = this.props.url_database+'/list';
-    }
-    $.ajax({
-      url: db_url,
-      dataType: 'json',
-      cache: false,
-      success: function(data) {
-        this.setState({database: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url_database, status, err.toString());
+        console.error( AZ_server + '/AZArea', status, err.toString());
       }.bind(this)
     });
   },
 
+  loadDatabasesFromServer: function(database_list, database_list_id, database_list_area, database_list_subject) {
+    if(database_list == null){
+      database_list = this.props.database_list;
+    }
+    if(database_list_id == null){
+      database_list_id = this.props.database_list_id;
+    }
+
+    if(database_list != null)
+    {
+
+      if(database_list_area != null && database_list_subject != null)
+      {
+          db_url = AZ_server+'/database/area/' + database_list_area+'/subject/'+database_list_subject;
+      } else {
+          db_url = AZ_server+'/database/'+database_list+'/'+database_list_id;
+      }
+      /*set search terms*/
+      String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+      }
+      if(database_list_area ){
+        database_list_area = database_list_area.replace(/-/g, ' ').capitalize();
+      }
+      if(database_list_subject){
+        database_list_subject = database_list_subject.replace(/-/g, ' ').capitalize();
+      }
+
+      switch(database_list)
+      {
+        case 'az':
+          this.setState({search_term: database_list_id});
+          break;
+        case 'search':
+          this.setState({search_term: database_list_id});
+          break;
+        case 'area':
+          this.setState({search_term: database_list_area});
+          break;
+        case 'subject':
+          this.setState({search_term: database_list_area + ' > ' + database_list_subject});
+          break;
+        default:
+          this.setState({search_term: null});
+      }
+
+    } else{
+      db_url = AZ_server+'/database/list';
+    }
+    $.ajax({
+      url: db_url,
+      dataType: 'json',
+      cache: true,
+      success: function(data) {
+        this.setState({database: data});
+        this.setState({results_count: data.length});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(db_url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  handleRefineClick: function(e) {
+      e.preventDefault();
+     $('#area_list_id').toggle();
+  },
+
   areaClickEvent: function(e) {
-     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+     this.loadDatabasesFromServer(
+        e.detail.database_list,
+        e.detail.database_list_id,
+        e.detail.database_list_area
+        );
   },
   subjectClickEvent: function(e) {
-     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+     this.loadDatabasesFromServer(
+        e.detail.database_list,
+        e.detail.database_list_id,
+        e.detail.database_list_area,
+        e.detail.database_list_subject
+        );
   },
   azClickEvent: function(e) {
      this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
@@ -114,19 +185,26 @@ var AreaBox = React.createClass({
      if(e.detail.database_list_id != null)
      {
       this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
-    } else{ 
+    } else{
       this.loadDatabasesFromServer('list');
     }
+  },
+  homeEvent: function(e) {
+      this.loadDatabasesFromServer('list');
   },
   componentWillMount: function() {
     window.addEventListener("area_click_event", this.areaClickEvent, false);
     window.addEventListener("subject_click_event", this.subjectClickEvent, false);
     window.addEventListener("az_click_event", this.azClickEvent, false);
      window.addEventListener("search_event", this.searchEvent, false);
+     window.addEventListener("home_event", this.homeEvent, false);
   },
   componentWillUnmount: function() {
     window.removeEventListener("area_click_event", this.areaClickEvent, false);
     window.removeEventListener("subject_click_event", this.subjectClickEvent, false);
+    window.removeEventListener("az_click_event", this.azClickEvent, false);
+    window.removeEventListener("search_event", this.searchEvent, false);
+    window.removeEventListener("home_event", this.homeEvent, false);
   },
 
   getInitialState: function() {
@@ -134,78 +212,67 @@ var AreaBox = React.createClass({
   },
   componentDidMount: function() {
     this.loadAreasFromServer();
-    this.loadDatabasesFromServer();
-    setInterval(this.loadAreasFromServer, this.props.pollInterval);
-    setInterval(this.loadDatabasesFromServer, this.props.pollInterval);
   },
+
   render: function() {
+
+    function createMarkup() { return {__html: '>'}; };
     return (
-      <div className="container">
-        <div className="row">
-    
-          <div className="col-md-4">
-               <div className="areaBox">
-               <h1>Search</h1>
-                <SearchBox />
-               <h1>A-Z</h1>
-                <AZList />
-              <h1>Area</h1>
-              <AreaList data={this.state.data} />
-            </div>
+      <div>
 
-         </div>
 
-          <div className="col-md-8">
-            <div className="databaseBox">
-              <h1>Databases</h1>
-              <DatabaseList data={this.state.database} />
-            </div>
-          </div>
-        </div>
-      </div>
+                                <h1>Databases</h1>
+
+                                <div className="find-a-course library-search researchbank-search">
+                                    <div id="course-search-interface">
+
+                                          <SearchBox />
+
+                                    </div>
+                                </div>
+
+                                <aside id="area_list_top_id"  className="refine-search refine-search--site-search">
+
+                                    <h3 className="swin-accord"><a href='/#/refine' onClick={this.handleRefineClick.bind()}>Refine your search</a></h3>
+
+                                      <AreaList data={this.state.data} />
+
+                                </aside>
+
+                                <div id="search_results_top_id" className="search-results site-search-results researchbank-search-results">
+                                  <div className="search-total">
+                                      <span className="search-total__label"><ResultsCount data={this.state.results_count} /> <SearchTerm data={this.state.search_term} /></span>
+                                    </div>
+
+                                    <ul className="browse-results first-level-menu">
+
+                                              <div className="container">
+                                                <div className="row">
+
+                                                      <DatabaseList data={this.state.database} />
+
+                                                </div>
+                                              </div>
+
+                                    </ul>
+                                    <div className="clearfix"></div>
+                                    <div><a href="http://www.swinburne.edu.au/library-2015/about/plans-policies/terms-of-use-online-resources/">Terms of use for online resources</a>
+                                      &nbsp;
+                                      &nbsp;
+                                        <a href="http://www.swinburne.edu.au/library-2015/search/help/troubleshoot-database-access/">Troubleshooting database access</a>
+                                    </div>
+
+                                </div>
+
+                                               </div>
+
+
     );
   }
 });
 
 
-var AreaList = React.createClass({
-  //arealist hodler for area
 
-  componentDidMount: function() {
-   // this.loadSubjectsFromServer();
-  },
-
-/*
-  render: function() {
-    
-    var createItem = function(card, index) {
-      return (
-        <div className='areaItem'>
-         <div className="area">
-              <a ref="link" href="#" name={card.name} area_id={card.id} onClick={this.handleAreaClick.bind(this, card.id)} >{card.name}</a>
-         </div>
- 
-        </div>
-      );
-    }.bind(this);
-
-    return <div id='cards'>{ this.props.data.map(createItem) }</div>;
-   }
-*/
-  render: function() {
-      var commentNodes = this.props.data.map(function (comment) {
-        return (
-          <Area key={comment.id} area_id={comment.id} name={comment.name} />
-        );
-    });
-    return (
-      <div className="areaList">
-       {commentNodes}
-      </div>
-    );
-  }
- 
-});
 
 var SearchBox = React.createClass({
 
@@ -215,69 +282,134 @@ var SearchBox = React.createClass({
 
 
     clearAndFocusInput: function() {
-      this.setState({userInput:'',showClear:false}); 
+      this.setState({userInput:'',showClear:false});
 
       var customEvent = new CustomEvent("search_event",  {
             detail: { database_list: 'list'},
             bubbles: true
       });
       dispatchEvent(customEvent);
-      //this.setState({userInput: ''}); // Clear the input
-      // We wish to focus the <input /> now!
-      //this.refs.filterTextInput.getDOMNode().value
+
     },
 
     handleChange: function(e) {
 
-        this.setState({userInput: e.target.value});    
-
+        this.setState({userInput: e.target.value});
+        this.setState({search_term: e.target.value});
         text = this.refs.filterTextInput.getDOMNode().value;
-        
+
         if(text ==''){
           text = null;
-          this.setState({showClear:false}); 
+          this.setState({showClear:false});
         } else {
-          this.setState({showClear:true}); 
+          this.setState({showClear:true});
         }
         var customEvent = new CustomEvent("search_event",  {
-            detail: { 
+            detail: {
               database_list: 'search',
               database_list_id: text },
             bubbles: true
            });
 
-     
-          //this.refs.link.getDOMNode().dispatchEvent(customEvent);
-          //this.refs.filterTextInput.getDOMNode().value,
-
-
-          dispatchEvent(customEvent);
-
-
     },
 
     render: function() {
-        return (
-            <form>
-              <div className="btn-group">         
-                <input
-                    type="search"
-                    className="form-control"
-                    placeholder="Search..."
-                    value={this.state.userInput}
-                    ref="filterTextInput"
-                    onChange={this.handleChange}
-                />
-                 { this.state.showClear ? <span onClick={this.clearAndFocusInput} id="searchclear" className="glyphicon glyphicon-remove-circle"></span> :  null }
-                 </div>
 
-            </form>
+      var search_link="#/search/"+encodeURIComponent(this.state.userInput);
+
+        return (
+
+          <form
+            id="frs-search-interface-form"
+            className="form-search"
+            method="post"
+            action={search_link}
+            onsubmit="return false;"
+            enctype="application/x-www-form-urlencoded"
+            >
+
+            <fieldset className="search-query">
+
+                  <label className="visually-hidden" for="keyword">Enter keyword</label>
+                  <input
+                      type="search"
+                      autocomplete="off"
+                      className="input-medium"
+                      placeholder="Search for a database..."
+                      value={this.state.userInput}
+                      ref="filterTextInput"
+                      onChange={this.handleChange}
+                      id="search_form_input"
+                  />
+                <a href={search_link} name="search" id="search_form_click" className="btn btn--primary library-search--submit"><span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</a>
+              </fieldset>
+              <div className="clearfix"></div>
+<div className="search--advanced uppercase buffer--bottom">
+
+                <ul className="alphabet-links">
+
+                    <AZList />
+
+                </ul>
+              </div>
+      </form>
         );
     }
 });
 
-var AZList = React.createClass({
+var ResultsCount = React.createClass({
 
+  render: function() {
+
+    var resultsCount = this.props.data;
+   if(resultsCount == '0')
+    {
+      $results_wording = 'No results ';
+      resultsCount == null;
+    } else {
+      $results_wording = ' results ';
+    }
+    return (
+      <span className="resultsCount">
+      <strong>{resultsCount}</strong> {$results_wording}
+      </span>
+    );
+  }
+
+});
+
+var SearchTerm = React.createClass({
+
+  render: function() {
+    var searchTerm = this.props.data;
+    if(searchTerm){
+      var for_word = 'for ';
+    }
+    return (
+      <span className="searchTerm">
+      {for_word}
+      { searchTerm ? <SearchTermComponent data={searchTerm} />  : null }
+      </span>
+    );
+  }
+
+});
+var SearchTermComponent = React.createClass({
+
+  render: function() {
+    var searchTerm = decodeURIComponent(this.props.data);
+
+    return (
+      <span className="searchTerm">
+        <strong>{searchTerm}</strong>
+      </span>
+    );
+  }
+
+});
+
+
+var AZList = React.createClass({
 
   render: function() {
 
@@ -295,17 +427,16 @@ var AZList = React.createClass({
        {commentNodes}
       </div>
     );
-  }   
+  }
 
 });
-
 
 var AZ = React.createClass({
 
    handleAZClick: function(area_click) {
 
     var customEvent = new CustomEvent("az_click_event",  {
-      detail: { 
+      detail: {
        database_list: 'az',
        database_list_id: area_click },
       bubbles: true
@@ -315,70 +446,77 @@ var AZ = React.createClass({
   },
 
   render: function() {
-
-    return (<span>
-          <a ref="link"  className='letterWide'  href="#" name={this.props.letter} letter="{this.props.letter}" onClick={this.handleAZClick.bind(this, this.props.letter)} >{this.props.letter}</a>
-          </span>
+    $letter = '#/letter/'+ this.props.letter;
+    return (<li>
+          <a ref="link"  className='letterWide'  href={$letter} name={this.props.letter} letter="{this.props.letter}" onClick={this.handleAZClick.bind(this, this.props.letter)} >{this.props.letter}</a>
+          </li>
         );
     }
 
 });
 
+var AreaList = React.createClass({
+
+  componentDidMount: function() {
+   // this.loadSubjectsFromServer();
+  },
+
+  render: function() {
+      var commentNodes = this.props.data.map(function (comment) {
+        return (
+          <Area key={comment.id} area_id={comment.id} name={comment.name} open='false' />
+        );
+    });
+    return (
+      <div ref="area_list_top" className="refine-accordion start-open areaList" id="area_list_id">
+       {commentNodes}
+      </div>
+      );
+  }
+
+});
+
 var Area = React.createClass({
-  //Area owns subjectlist
 
    handleAreaClick: function(area_click) {
- 
+
      if(this.state.showSubMenu == true)
      {
           this.setState({ showSubMenu: false });
       } else {
           this.setState({ showSubMenu: true });
      }
-
+/*
     var customEvent = new CustomEvent("area_click_event",  {
-      detail: { 
+      detail: {
        database_list: 'area',
        database_list_id: area_click },
       bubbles: true
     });
     this.refs.link.getDOMNode().dispatchEvent(customEvent);
-
+*/
   },
 
 
 
   getInitialState: function() {
     return {
-        subject: [],  
+        subject: [],
         showSubMenu: false
     };
   },
 
 
   render: function() {
-/*
-    var createItem = function(card, index) {
-      return (
-        <div id='card' key={index}>
-          <img onClick={this.props.onClick.bind(null, this)} src={ card.url } />
-        </div>
-      );
-    }.bind(this);
-
-    return (<div id='cards'>
-        { this.props.cards.map(createItem) }
-        </div>
-            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
-            )
-    }
-*/
+    $area_link_name = this.props.name.replace(/\s+/g, '-').toLowerCase();
+    $area_link = '#/area/'+ $area_link_name;
        return (
-        <div className='areaItem'>
-         <div className="area">
-              <a ref="link" href="#" name={this.props.name} area_id="{this.props.area_id}" onClick={this.handleAreaClick.bind(this, this.props.area_id)} >{this.props.name}</a>
-            </div>
-            { this.state.showSubMenu ? <SubjectList area_id={this.props.area_id} />: null }
+
+        <div className='refine-accordion start-open areaItem'>
+         <h3 className="area swin-accordion-heading">
+              <a ref="link" href={$area_link} name={this.props.name} area_id="{this.props.area_id}" onClick={this.handleAreaClick.bind(this, this.props.area_id)} >{this.props.name}</a>
+            </h3>
+            { this.state.showSubMenu ? <SubjectList area_name={this.props.name} area_id={this.props.area_id} />: null }
         </div>);
      }
 
@@ -387,14 +525,14 @@ var SubjectList = React.createClass({
 
   loadSubjectsFromServer: function(area_click) {
     $.ajax({
-      url: 'http://136.186.72.211/laravel/public/area/subject/'+ area_click,
+      url: AZ_server + '/area/subject/'+ area_click,
       dataType: 'json',
-      cache: false,
+      cache: true,
       success: function(data) {
         this.setState({subject: data});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(AZ_server + '/area/subject/'+ area_click, status, err.toString());
       }.bind(this)
     });
   },
@@ -409,14 +547,17 @@ var SubjectList = React.createClass({
     this.loadSubjectsFromServer(this.props.area_id);
   },
   render: function() {
+      var areaName = this.props.area_name;
       var commentNodes = this.state.subject.map(function (comment) {
         return (
-          <Subject key={comment.id} subject_id={comment.id} name={comment.name}/>
+          <Subject key={comment.id} area_name={areaName} subject_id={comment.id} name={comment.name}/>
         );
     });
     return (
       <div className="subjectList">
+      <ul className="refine-filters">
        {commentNodes}
+       </ul>
       </div>
     );
   }
@@ -424,23 +565,35 @@ var SubjectList = React.createClass({
 
 var Subject = React.createClass({
 
+
   handleSubjectClick: function(e) {
-    //reload database list
-    var customEvent = new CustomEvent("subject_click_event",  {
-      detail: { 
-       database_list: 'subject',
-       database_list_id: e },
-      bubbles: true
-    });
-    this.refs.link.getDOMNode().dispatchEvent(customEvent);
-   
+
+    //if desktop
+    if ( $( window ).width() <= '1200')
+    {
+
+      var divPosition = $('#search_results_top_id').offset();
+      $('html, body').animate({scrollTop: divPosition.top}, "fast");
+    }
+
+    if ( $( window ).width() > '1200' && $(document).scrollTop() >= '450')
+    {
+
+      var divPosition = $('#search_results_top_id').offset();
+      $('html, body').animate({scrollTop: divPosition.top}, "fast");
+    }
+
   },
 
   render: function() {
+    $subject_link_name = this.props.name.replace(/\s+/g, '-').toLowerCase();
+    $area_link_name = this.props.area_name.replace(/\s+/g, '-').toLowerCase();
+
+    $subject_link = '#/area/' + $area_link_name + '/subject/' + $subject_link_name;
         return (
-      <div className="subject">
-       &nbsp; &nbsp; <a ref="link" href="#" name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
-      </div>
+      <li className="subject">
+        <a ref="link" href={$subject_link} name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
+      </li>
     );
   }
 });
@@ -454,7 +607,7 @@ var DatabaseList = React.createClass({
   render: function() {
       var databaseNodes = this.props.data.map(function (comment) {
         return (
-          <Database author={comment.id} name={comment.name}  description={comment.description}  />
+          <Database author={comment.id} user={comment.user} url={comment.url} name={comment.name} description={comment.description}  />
         );
     });
     return (
@@ -467,22 +620,109 @@ var DatabaseList = React.createClass({
 
 var Database = React.createClass({
 
- 
+
   render: function() {
-     var rawMarkup = marked(this.props.description.toString(), {sanitize: true});
+     //var rawMarkup = this.props.description.toString();
+     //var rawUser = this.props.user.toString();
      return (
-      <div className="comment">
-       <a href="#">{this.props.name}</a>
-        <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
-      </div>
+      <li className="comment">
+       <strong><a target="_blank" href={this.props.url}>{this.props.name}</a></strong>
+        <span>{this.props.user}</span>
+        <span>{this.props.description}</span>
+      </li>
     );
   }
 });
 
 React.render(
-    <AreaBox url="http://136.186.72.211/laravel/public/AZArea" url_database="http://136.186.72.211/laravel/public/database" pollInterval={200000} />,
-  document.getElementById('content')
+    <AreaBox />,
+    document.getElementById('az_content')
 );
+
+
+      var letterRoute = function (letter) {
+
+       var customEvent = new CustomEvent("az_click_event",  {
+         detail: {
+          database_list: 'az',
+          database_list_id: letter },
+         bubbles: true
+       });
+       dispatchEvent(customEvent);
+
+      };
+
+       var areaSubjectRoute = function (area,subject) {
+
+        var customEvent = new CustomEvent("subject_click_event",  {
+          detail: {
+           database_list: 'subject',
+           database_list_id: subject,
+           database_list_area: area,
+           database_list_subject: subject
+           },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+
+      };
+
+      var homeRoute = function () {
+
+        var customEvent = new CustomEvent("home_event",  {
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+      };
+      var areaRoute = function (area) {
+
+        var customEvent = new CustomEvent("area_click_event",  {
+          detail: {
+           database_list: 'area',
+           database_list_id: area,
+           database_list_area: area },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
+      };
+
+      var searchRoute = function (query) {
+
+          var customEvent = new CustomEvent("search_event",  {
+            detail: {
+              database_list: 'search',
+              database_list_id: query
+            },
+            bubbles: true
+          });
+
+          dispatchEvent(customEvent);
+
+      };
+
+      var routes = {
+        '/area/:area/subject/:subject': areaSubjectRoute,
+        '/': homeRoute,
+        '/area/:area': areaRoute,
+        '/letter/:letter': letterRoute,
+        "/search/([._a-zA-Z0-9-\\% ]+)": {
+            on: function (queryText) {
+                queryText = decodeURIComponent(queryText);
+                searchRoute(queryText);
+              }
+            }
+      };
+
+      var router = Router(routes).configure({
+        html5history: false
+        });
+
+      router.init();
+
     </script>
+
   </body>
 </html>
