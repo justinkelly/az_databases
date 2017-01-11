@@ -4,7 +4,7 @@
   <script type="text/javascript">
 
     /* AZ Configuration */
-    var AZ_server = 'http://www.swinburne.edu.au/lib/tools/az_server/public';
+    var AZ_server = '//www.swinburne.edu.au/app/library-azdb/az_server/public';
 
   </script>
 
@@ -42,12 +42,12 @@
     }());
     </script>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-sham.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.3/jquery.xdomainrequest.min.js"></script>
 
 </head>
 <body class="page-search-results page">
@@ -78,6 +78,8 @@
 </script>
 
 <script type="text/jsx">
+
+jQuery.support.cors = true;
 
 var AreaBox = React.createClass({
 
@@ -169,6 +171,16 @@ var AreaBox = React.createClass({
         e.detail.database_list_id,
         e.detail.database_list_area
         );
+
+        //update search term
+        var customEvent = new CustomEvent("set_search_term",  {
+          detail: {
+            term: null
+          },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
   },
   subjectClickEvent: function(e) {
      this.loadDatabasesFromServer(
@@ -177,9 +189,30 @@ var AreaBox = React.createClass({
         e.detail.database_list_area,
         e.detail.database_list_subject
         );
+
+        //update search term
+        var customEvent = new CustomEvent("set_search_term",  {
+          detail: {
+            term: null
+          },
+          bubbles: true
+        });
+        dispatchEvent(customEvent);
+
   },
   azClickEvent: function(e) {
-     this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+    //load adta
+    this.loadDatabasesFromServer(e.detail.database_list,e.detail.database_list_id);
+
+    //update search term
+    var customEvent = new CustomEvent("set_search_term",  {
+      detail: {
+        term: null
+      },
+      bubbles: true
+    });
+    dispatchEvent(customEvent);
+
   },
   searchEvent: function(e) {
      if(e.detail.database_list_id != null)
@@ -256,10 +289,10 @@ var AreaBox = React.createClass({
 
                                     </ul>
                                     <div className="clearfix"></div>
-                                    <div><a href="http://www.swinburne.edu.au/library-2015/about/plans-policies/terms-of-use-online-resources/">Terms of use for online resources</a>
+                                    <div><a href="http://www.swinburne.edu.au/library/about/plans-policies/terms-of-use-online-resources/">Terms of use for online resources</a>
                                       &nbsp;
                                       &nbsp;
-                                        <a href="http://www.swinburne.edu.au/library-2015/search/help/troubleshoot-database-access/">Troubleshooting database access</a>
+                                        <a href="http://www.swinburne.edu.au/library/search/help/troubleshoot-database-access/">Troubleshooting database access</a>
                                     </div>
 
                                 </div>
@@ -276,6 +309,16 @@ var AreaBox = React.createClass({
 
 var SearchBox = React.createClass({
 
+  set_search_term: function(e) {
+    this.setState({userInput:e.term});
+  },
+
+  componentWillMount: function() {
+    window.addEventListener("set_search_term", this.set_search_term, false);
+  },
+  componentWillUnmount: function() {
+    window.removeEventListener("set_search_term", this.set_search_term, false);
+  },
    getInitialState: function() {
       return {userInput: '', showClear:false};
     },
@@ -341,7 +384,8 @@ var SearchBox = React.createClass({
                       onChange={this.handleChange}
                       id="search_form_input"
                   />
-                <a href={search_link} name="search" id="search_form_click" className="btn btn--primary library-search--submit"><span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</a>
+                <a href={search_link} name="search" id="search_form_click" className="btn btn--primary library-search--submit">
+                  <span aria-hidden="true" className="fa fa-lg fa-search fa-fw"></span> Search</a>
               </fieldset>
               <div className="clearfix"></div>
 <div className="search--advanced uppercase buffer--bottom">
@@ -538,19 +582,47 @@ var SubjectList = React.createClass({
   },
 
   getInitialState: function() {
-    return {subject: []};
+    return {
+      subject: [],
+      selected_subject:'1'
+    };
   },
+
+  areaSubjectClickEvent: function(e) {
+    //load adta
+      this.setState({selected_subject: e.detail.subject_id});
+      console.log('Area Selected subject' + e.detail.subject_id);
+  },
+
   componentWillMount: function() {
+    window.addEventListener("area_subject_click_event", this.areaSubjectClickEvent, false);
     window.addEventListener("subject_click_event", this.areaClickEvent, false);
   },
-  componentDidMount: function() {
-    this.loadSubjectsFromServer(this.props.area_id);
+  componentWillUnmount: function() {
+    window.removeEventListener("area_subject_click_event", this.areaSubjectClickEvent, false);
   },
+  componentDidMount: function() {
+        this.loadSubjectsFromServer(this.props.area_id);
+  },
+
   render: function() {
+      console.log('Slected subject - state:' + this.state.selected_subject);
       var areaName = this.props.area_name;
+      sstate = this.state.selected_subject;
       var commentNodes = this.state.subject.map(function (comment) {
+
+        var subject_selected = '';
+
+          if(sstate == comment.id)
+          {
+            subject_selected = 'true';
+          }
+
         return (
-          <Subject key={comment.id} area_name={areaName} subject_id={comment.id} name={comment.name}/>
+          <Subject
+          key={comment.id} area_name={areaName} subject_selected={subject_selected} subject_id={comment.id} name={comment.name}
+          index={comment.id}
+          />
         );
     });
     return (
@@ -567,7 +639,19 @@ var Subject = React.createClass({
 
 
   handleSubjectClick: function(e) {
+    //update search term
+    var areaSubjectCustomEvent = new CustomEvent("area_subject_click_event",  {
+      detail: {
+        subject_id: e
+      },
+      bubbles: true
+    });
+    dispatchEvent(areaSubjectCustomEvent);
+    console.log('A subject click:' + e);
 
+    //console.log('Index: ' +  this.props.index);
+    //console.log('Index: ' +  e);
+    //this.props.onClick(this.props.index);
     //if desktop
     if ( $( window ).width() <= '1200')
     {
@@ -590,8 +674,17 @@ var Subject = React.createClass({
     $area_link_name = this.props.area_name.replace(/\s+/g, '-').toLowerCase();
 
     $subject_link = '#/area/' + $area_link_name + '/subject/' + $subject_link_name;
+
+
+    var classString = 'subject';
+
+      if(this.props.subject_selected == 'true') {
+        classString += ' is-active';
+      }
+
+
         return (
-      <li className="subject">
+      <li className={classString}>
         <a ref="link" href={$subject_link} name={this.props.name} onClick={this.handleSubjectClick.bind(this, this.props.subject_id)} >{this.props.name}</a>
       </li>
     );
@@ -620,7 +713,10 @@ var DatabaseList = React.createClass({
 
 var Database = React.createClass({
 
-
+ 
+ rawHTML: function() {
+    return { __html: this.props.description};
+  },
   render: function() {
      //var rawMarkup = this.props.description.toString();
      //var rawUser = this.props.user.toString();
@@ -628,7 +724,7 @@ var Database = React.createClass({
       <li className="comment">
        <strong><a target="_blank" href={this.props.url}>{this.props.name}</a></strong>
         <span>{this.props.user}</span>
-        <span>{this.props.description}</span>
+        <span dangerouslySetInnerHTML={this.rawHTML()} />
       </li>
     );
   }
@@ -704,7 +800,7 @@ React.render(
       };
 
       var routes = {
-        '/area/:area/subject/:subject': areaSubjectRoute,
+        '/area/:area/subject/([,._a-zA-Z0-9-\\% ]+)': areaSubjectRoute,
         '/': homeRoute,
         '/area/:area': areaRoute,
         '/letter/:letter': letterRoute,

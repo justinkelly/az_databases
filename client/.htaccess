@@ -1,0 +1,2 @@
+LayoutIgnoreURI *.html
+AddOutputFilter INCLUDES shtml html htm
