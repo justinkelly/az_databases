@@ -67,11 +67,13 @@ The Alma setup is detailed in these sections:
 ### PHP/MySQL Server
 
 #### PHP
-The server component on AZ Databases uses the Laravel PHP framework. This requries a server with PHP 5.5 and MySQL.
+The server component on AZ Databases uses the Laravel PHP framework. This requries a server with PHP 5.5 and MySQL. Furthermore, you need composer (https://getcomposer.org/download/) to get the dependencies.
 
-To install this component, copy the 'server' folder onto your webserver
+Before you copy files to your server you need to get the dependencies using composer. Run `composer install` in the server folder using a command line.
 
-Copy the file '.env.example' and rename it as '.env'. This file contains the MySQL database connection details, fill in the below listed fields with the appropraite data fro your environment
+When composer has finished getting dependencies, copy the 'server' folder onto your webserver
+
+Copy the file '.env.example' and rename it as '.env'. This file contains the MySQL database connection details, fill in the below listed fields with the appropraite data from your environment
 
 
 ```
@@ -80,7 +82,6 @@ DB_DATABASE=homestead
 DB_USERNAME=homestead
 DB_PASSWORD=secret
 ```
-
 
 TODO: MORE DETAILS TO COME
 
